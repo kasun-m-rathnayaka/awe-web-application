@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -10,8 +11,12 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginForm() {
+  const [user, setUser] = useState({ email: "", password: "" });
+  const signUp = () => {};
   return (
     <div className="flex items-center h-screen">
       <Card className="max-w-sm m-auto">
@@ -28,7 +33,8 @@ export default function LoginForm() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="m@gmail.com"
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
                 required
               />
             </div>
@@ -36,15 +42,20 @@ export default function LoginForm() {
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
                 <Link
-                  href="#"
+                  href="tel:+94 76 880 3755"
                   className="ml-auto inline-block text-sm underline"
                 >
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+              <Input
+                id="password"
+                type="password"
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+                required
+              />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" onClick={signUp}>
               Login
             </Button>
             <Button variant="outline" className="w-full">
@@ -53,7 +64,7 @@ export default function LoginForm() {
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link href="#" className="underline">
+            <Link href="/signup" className="underline">
               Sign up
             </Link>
           </div>

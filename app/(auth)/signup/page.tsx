@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -10,8 +11,18 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
 export default function LoginForm() {
+  const [user, setUser] = useState({
+    firstname: "",
+    lastname: "",
+    nationalid: "",
+    whatsappnumber: "",
+    address: "",
+    email: "",
+    password: "",
+  });
   return (
     <div className="flex items-center h-screen">
       <Card className="mx-auto max-w-sm ">
@@ -26,11 +37,65 @@ export default function LoginForm() {
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="first-name">First name</Label>
-                <Input id="first-name" placeholder="Max" required />
+                <Input
+                  id="first-name"
+                  placeholder="Max"
+                  onChange={(e) =>
+                    setUser({ ...user, firstname: e.target.value })
+                  }
+                  required
+                />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="last-name">Last name</Label>
-                <Input id="last-name" placeholder="Robinson" required />
+                <Input
+                  id="last-name"
+                  placeholder="Robinson"
+                  onChange={(e) =>
+                    setUser({ ...user, lastname: e.target.value })
+                  }
+                  required
+                />
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <div className="grid gap-2">
+                <Label htmlFor="id">National ID</Label>
+                <Input
+                  id="id"
+                  placeholder="2000120001012"
+                  onChange={(e) =>
+                    setUser({ ...user, nationalid: e.target.value })
+                  }
+                  required
+                />
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <div className="grid gap-2">
+                <Label htmlFor="phone-number">Whatsapp number</Label>
+                <Input
+                  type="number"
+                  id="phone-number"
+                  placeholder="071-678 76 56"
+                  onChange={(e) =>
+                    setUser({ ...user, whatsappnumber: e.target.value })
+                  }
+                  required
+                />
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <div className="grid gap-2">
+                <Label htmlFor="address">Address</Label>
+                <Input
+                  id="address"
+                  placeholder="Gangodawila, Nugegoda"
+                  onChange={(e) =>
+                    setUser({ ...user, address: e.target.value })
+                  }
+                  required
+                />
               </div>
             </div>
             <div className="grid gap-2">
@@ -38,24 +103,26 @@ export default function LoginForm() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="mail@gmail.com"
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
                 required
               />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" />
+              <Input
+                id="password"
+                type="password"
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+              />
             </div>
             <Button type="submit" className="w-full">
               Create an account
             </Button>
-            <Button variant="outline" className="w-full">
-              Sign up with GitHub
-            </Button>
           </div>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <Link href="#" className="underline">
+            <Link href="/login" className="underline">
               Sign in
             </Link>
           </div>
