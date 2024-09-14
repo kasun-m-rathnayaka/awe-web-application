@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     const validity = await bycryptjs.compare(password, user.password);
     if (!validity) {
       return NextResponse.json(
-        { message: "Login unsuccessful", success: false },
+        { message: "Login unsuccessful, Password is incorrect", success: false },
         { status: 400 }
       );
     }

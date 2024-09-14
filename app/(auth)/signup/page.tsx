@@ -14,9 +14,11 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function LoginForm() {
-  // const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const [user, setUser] = useState({
     firstname: "",
     lastname: "",
@@ -31,13 +33,19 @@ export default function LoginForm() {
     try {
       const response = await axios.post("/api/users/signup", user);
       console.log("signup success", response.data);
-      // router.push('/dashboard')
-    } catch (error) {
-      console.log("error", error)
+      toast("Signup Success");
+      router.push("/login");
+    } catch (error:any) {
+      console.log("error", error.response);
+      toast.error(error.response.data.message)
+      setLoading(false)
     }
-  }
+  };
   return (
     <div className="flex items-center h-screen">
+      <div>
+        <Toaster />
+      </div>
       <Card className="mx-auto max-w-sm ">
         <CardHeader>
           <CardTitle className="text-xl">Sign Up</CardTitle>
@@ -131,7 +139,7 @@ export default function LoginForm() {
               />
             </div>
             <Button type="submit" className="w-full" onClick={handleSignUp}>
-              Create an account
+              {loading ? "Loading" : "Create an account"}
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-
+import toast, { Toaster } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,18 +18,24 @@ import axios from "axios";
 export default function LoginForm() {
   const router = useRouter();
   const [user, setUser] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+
   const signUp = async() => {
     try {
-      console.log("first")
+      setLoading(true)
       const response = await axios.post('/api/users/login',user)
-      console.log(response)
       router.push('/dashboard')
-    } catch (error) {
-      console.log("error", error);
+      toast('Login Success')
+    } catch (error:any) {
+      console.log("error", error.response.data.message);
+      toast.error(error.response.data.message)
+      setLoading(false)
     }
   };
+
   return (
     <div className="flex items-center h-screen">
+      <div><Toaster/></div>
       <Card className="max-w-sm m-auto">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
@@ -68,7 +74,7 @@ export default function LoginForm() {
               />
             </div>
             <Button type="submit" className="w-full" onClick={signUp}>
-              Login
+              {loading ? 'Loading' : 'Login'}
             </Button>
             <Button variant="outline" className="w-full">
               Login with Google
