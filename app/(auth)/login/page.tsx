@@ -13,10 +13,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import axios from "axios";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [user, setUser] = useState({ email: "", password: "" });
-  const signUp = () => {};
+  const signUp = async() => {
+    try {
+      console.log("first")
+      const response = await axios.post('/api/users/login',user)
+      console.log(response)
+      router.push('/dashboard')
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   return (
     <div className="flex items-center h-screen">
       <Card className="max-w-sm m-auto">
@@ -33,7 +44,7 @@ export default function LoginForm() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@gmail.com"
+                placeholder="mail@gmail.com"
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
                 required
               />
@@ -51,6 +62,7 @@ export default function LoginForm() {
               <Input
                 id="password"
                 type="password"
+                placeholder="password"
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
                 required
               />
