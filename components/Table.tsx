@@ -1,18 +1,6 @@
 import React from "react";
 import {
-  File,
-  Home,
-  LineChart,
-  ListFilter,
   MoreHorizontal,
-  Package,
-  Package2,
-  PanelLeft,
-  PlusCircle,
-  Search,
-  Settings,
-  ShoppingCart,
-  Users2,
 } from "lucide-react";
 import {
   Table,
@@ -26,11 +14,9 @@ import Image from "next/image";
 import { Badge } from "./ui/badge";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";

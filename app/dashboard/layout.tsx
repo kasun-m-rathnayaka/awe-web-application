@@ -1,5 +1,5 @@
 "use client";
-import React, { useReducer } from "react";
+import React from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -12,7 +12,6 @@ import {
   Package,
   Package2,
   Power,
-  Settings,
   ShoppingCart,
   Users2,
 } from "lucide-react";
@@ -32,6 +31,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       console.log(error.message);
     }
   };
+  
   return (
     <div>
       <Toaster />

@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function LoginForm() {
@@ -41,6 +41,7 @@ export default function LoginForm() {
       setLoading(false)
     }
   };
+  
   return (
     <div className="flex items-center h-screen">
       <div>
