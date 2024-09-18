@@ -31,6 +31,7 @@ export default function LoginForm() {
 
   const handleSignUp = async () => {
     try {
+      setLoading(true);
       const response = await axios.post("/api/users/signup", user);
       console.log("signup success", response.data);
       toast("Signup Success");
@@ -140,7 +141,7 @@ export default function LoginForm() {
               />
             </div>
             <Button type="submit" className="w-full" onClick={handleSignUp}>
-              {loading ? "Loading" : "Create an account"}
+              {loading ? "Processing" : "Create an account"}
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
