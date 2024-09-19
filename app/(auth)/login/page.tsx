@@ -24,8 +24,8 @@ export default function LoginForm() {
     try {
       setLoading(true)
       const response = await axios.post('/api/users/login',user)
-      router.push('/dashboard')
-      toast('Login Success')
+      router.push('/admin/home')
+      toast.success('Login Success')
     } catch (error:any) {
       console.log("error", error.response.data.message);
       toast.error(error.response.data.message)

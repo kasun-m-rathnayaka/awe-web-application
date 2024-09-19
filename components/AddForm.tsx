@@ -15,10 +15,11 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+interface AddFormProps {
+  setOpen: (open: boolean) => void;
+}
 
-export default function LoginForm() {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
   const [user, setUser] = useState({
     firstname: "",
     lastname: "",
@@ -29,21 +30,9 @@ export default function LoginForm() {
     password: "",
   });
 
-  const handleSignUp = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.post("/api/users/signup", user);
-      console.log("signup success", response.data);
-      toast.success("Signup Success");
-      router.push("/login");
-    } catch (error:any) {
-      console.log("error", error.response);
-      toast.error(error.response.data.message)
-      setLoading(false)
-    }
-  };
-  
   return (
+    <div className="">
+
     <div className="flex items-center h-screen">
       <div>
         <Toaster />
@@ -140,9 +129,9 @@ export default function LoginForm() {
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
             </div>
-            <Button type="submit" className="w-full" onClick={handleSignUp}>
+            {/* <Button type="submit" className="w-full" onClick={handleSignUp}>
               {loading ? "Processing" : "Create an account"}
-            </Button>
+            </Button> */}
           </div>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
@@ -153,5 +142,8 @@ export default function LoginForm() {
         </CardContent>
       </Card>
     </div>
+    </div>
   );
-}
+};
+
+export default AddForm;

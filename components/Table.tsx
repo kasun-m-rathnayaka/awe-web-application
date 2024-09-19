@@ -22,7 +22,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 
-const TableComponent = () => {
+interface TableComponentProps {
+  titles: string[];
+}
+
+const TableComponent: React.FC<TableComponentProps> = ({ titles }) => {
   return (
     <div>
       <Table>
@@ -31,14 +35,9 @@ const TableComponent = () => {
             <TableHead className="hidden w-[100px] sm:table-cell">
               <span className="sr-only">Image</span>
             </TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead className="hidden md:table-cell">Total Sales</TableHead>
-            <TableHead className="hidden md:table-cell">Created at</TableHead>
-            <TableHead>
-              <span className="sr-only">Actions</span>
-            </TableHead>
+            {titles.map((title,i) => (
+              <TableHead key={i}>{title}</TableHead>
+            ))}
           </TableRow>
         </TableHeader>
         <TableBody>
