@@ -1,26 +1,4 @@
-// }export const DELETE = async (request: Request, { params }: { params: any }) => {
-//     try {
-//       const _id = params.id;
-//       await connect().catch(console.dir);
-
-//       const deletedUser = await ActiveModules.findByIdAndDelete(_id);
-
-//       if (!deletedUser) {
-//         return new NextResponse("User not found", { status: 404 });
-//       }
-
-//       return new NextResponse(
-//         JSON.stringify({
-//           message: "User deleted successfully",
-//           user: deletedUser,
-//         }),
-//         { status: 200 }
-//       );
-//     } catch (error) {
-//       return new NextResponse("Error deleting user: " + error, { status: 500 });
-//     }
-//   };
-
+//
 import { connect } from "@/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 import Task from "@/models/jobModel";

@@ -41,20 +41,31 @@ const page = () => {
     "Paid",
     "Status",
     "Employer",
-    "Actions"
+    "Actions",
   ];
 
-  const fetchData = async()=>{
+  const fetchData = async () => {
     try {
       const response = await axios.get("/api/tasks").then((res) => {
-        setTasks(res.data)
+        setTasks(res.data);
       });
-    } catch (error:any) {
+    } catch (error: any) {
       console.log("error", error.response);
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
-    
-  }
+  };
+
+  const handleDelete = async (id: any) => {
+    try {
+      const response = await axios.delete(`/api/tasks/${id}`).then((res) => {
+        fetchData();
+        toast.success("Task Deleted Successfully");
+      });
+    } catch (error: any) {
+      console.log("error", error.response);
+      toast.error(error.response.data.message);
+    }
+  };
   return (
     <div>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -134,7 +145,11 @@ const page = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <TableComponent titles={titles} data={tasks} />
+                    <TableComponent
+                      titles={titles}
+                      data={tasks}
+                      handleDelete={handleDelete}
+                    />
                   </CardContent>
                   <CardFooter>
                     <div className="text-xs text-muted-foreground">

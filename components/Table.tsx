@@ -31,9 +31,14 @@ interface TableComponentProps {
     status: string;
     employer: string;
   }[];
+  handleDelete: (id: any) => void;
 }
 
-const TableComponent: React.FC<TableComponentProps> = ({ titles, data }) => {
+const TableComponent: React.FC<TableComponentProps> = ({
+  titles,
+  data,
+  handleDelete,
+}) => {
   return (
     <div>
       <Table>
@@ -82,7 +87,9 @@ const TableComponent: React.FC<TableComponentProps> = ({ titles, data }) => {
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem>Delete</DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => handleDelete(item._id)}>
+                      Delete
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>
