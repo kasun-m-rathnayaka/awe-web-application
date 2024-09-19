@@ -7,6 +7,7 @@ import {
   Package,
   Package2,
   PanelLeft,
+  ScanFace,
   Search,
   ShoppingCart,
   Users2,
@@ -90,7 +91,7 @@ const Header = () => {
               </nav>
             </SheetContent>
           </Sheet>
-          <Breadcrumb className="hidden md:flex">
+          {/* <Breadcrumb className="hidden md:flex">
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
@@ -108,7 +109,7 @@ const Header = () => {
                 <BreadcrumbPage>All Products</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
-          </Breadcrumb>
+          </Breadcrumb> */}
           <div className="relative ml-auto flex-1 md:grow-0">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -124,13 +125,7 @@ const Header = () => {
                 size="icon"
                 className="overflow-hidden rounded-full"
               >
-                <Image
-                  src="/placeholder-user.jpg"
-                  width={36}
-                  height={36}
-                  alt="Avatar"
-                  className="overflow-hidden rounded-full"
-                />
+                <ScanFace />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
