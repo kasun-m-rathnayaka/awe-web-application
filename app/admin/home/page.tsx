@@ -1,5 +1,5 @@
 "use client";
-import { CircleX, File, ListFilter, PlusCircle } from "lucide-react";
+import { CircleX, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,15 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import TableComponent from "@/components/Table";
 import Header from "@/components/Header";
 import { useEffect, useState } from "react";
@@ -26,7 +18,7 @@ import AddForm from "@/components/AddForm";
 import toast from "react-hot-toast";
 import AssignForm from "@/components/AssignForm";
 
-const page = () => {
+const Page = () => {
   const [open, setOpen] = useState(false);
   const [openAssign, setOpenAssign] = useState(false);
   const [assignId, setAssignId] = useState()
@@ -180,4 +172,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

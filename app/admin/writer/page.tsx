@@ -16,9 +16,11 @@ import axios from "axios";
 import AddForm from "@/components/AddForm";
 import toast from "react-hot-toast";
 import UserTable from "@/components/UserTable";
+import { useRouter } from "next/navigation";
 
-const page = () => {
-    const [open, setOpen] = useState(false);
+const Page = () => {
+  const router = useRouter()
+  const [open, setOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
     fetchData();
@@ -57,6 +59,10 @@ const titles = [
       toast.error(error.response.data.message);
     }
   };
+
+  const handleClick = (id: any) => {
+    router.push(`/admin/${id}`)
+  }
 
   return (
     <div>
@@ -106,6 +112,7 @@ const titles = [
                       titles={titles}
                       data={tasks}
                       handleDelete={handleDelete}
+                      handleClick={handleClick}
                     />
                   </CardContent>
                   <CardFooter>
@@ -124,4 +131,4 @@ const titles = [
   )
 }
 
-export default page
+export default Page

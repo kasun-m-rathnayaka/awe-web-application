@@ -32,12 +32,14 @@ interface TableComponentProps {
     role: string;
   }[];
   handleDelete: (id: any) => void;
+  handleClick: (id:any) => void;
 }
 
 const UserTable: React.FC<TableComponentProps> = ({
   titles,
   data,
   handleDelete,
+  handleClick
 }) => {
   return (
     <div>
@@ -54,7 +56,7 @@ const UserTable: React.FC<TableComponentProps> = ({
         </TableHeader>
         <TableBody>
           {data.map((item) => (
-            <TableRow key={item._id}>
+            <TableRow key={item._id} onClick={()=>handleClick(item._id)} className=" cursor-pointer">
               <TableCell className="hidden sm:table-cell">
                 <NotebookText />
               </TableCell>
@@ -68,7 +70,9 @@ const UserTable: React.FC<TableComponentProps> = ({
                 {item.email}
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                <Badge variant={"outline"}>{item.verifyed? "Verified" : "Not Verified"}</Badge>
+                <Badge variant={"outline"}>
+                  {item.verifyed ? "Verified" : "Not Verified"}
+                </Badge>
               </TableCell>
               <TableCell className="hidden md:table-cell">
                 <Badge variant={"outline"}>{item.role}</Badge>

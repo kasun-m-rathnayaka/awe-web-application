@@ -4,16 +4,17 @@ import UserDetails from "@/components/UserDetails";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: { id: string } }) => {
   const [user, setUser] = useState({
     image: "",
-    firstName: "",
-    lastName: "",
-    nationalId: "",
-    whatsappNumber: "",
+    firstname: "Loading ",
+    lastname: "...",
+    nationalid: "",
+    whatsappnumber: "",
     email: "",
     isVerified: false,
-    role: ""
+    role: "",
+    projects: []
   });
   const featchUser = async () => {
     try {
@@ -42,4 +43,4 @@ const page = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default page;
+export default Page;
