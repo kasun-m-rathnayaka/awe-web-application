@@ -15,10 +15,11 @@ import { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 interface AddFormProps {
-  setOpen: (open: boolean) => void;
+  setOpenAssign: (open: boolean) => void;
+  id:any
 }
 
-const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
+const AssignForm = ({ setOpenAssign,id }: AddFormProps) => {
   const [loading, setLoading] = useState(false);
   const [task, setTask] = useState({
     name: "",
@@ -28,20 +29,18 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
     payment: "",
     paid: "",
     status: "",
-    employer: "",
   });
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/tasks", task);
-      console.log("Task added successfully", response.data);
-      toast.success("Task added successfully");
-      setLoading(false)
-    } catch (error:any) {
+     console.log(id)
+      toast.success("Task assigned successfully");
+      setLoading(false);
+    } catch (error: any) {
       console.log("error", error.response);
-      toast.error(error.response.data.message)
-      setLoading(false)
+      toast.error(error.response.data.message);
+      setLoading(false);
     }
   };
 
@@ -58,8 +57,8 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
         </div>
         <Card className="mx-auto max-w-sm ">
           <CardHeader>
-            <CardTitle className="text-xl">Add a new Task</CardTitle>
-            <CardDescription>Create new jobs and Tasks</CardDescription>
+            <CardTitle className="text-xl">Assign a new Task</CardTitle>
+            <CardDescription>Assign new jobs and Tasks to writers</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
@@ -69,9 +68,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                   <Input
                     id="name"
                     placeholder="Demo1001"
-                    onChange={(e) =>
-                      setTask({ ...task, name: e.target.value })
-                    }
+                    onChange={(e) => setTask({ ...task, name: e.target.value })}
                     required
                   />
                 </div>
@@ -131,9 +128,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                     id="last-name"
                     type="number"
                     placeholder="2000"
-                    onChange={(e) =>
-                      setTask({ ...task, paid: e.target.value })
-                    }
+                    onChange={(e) => setTask({ ...task, paid: e.target.value })}
                     required
                   />
                 </div>
@@ -151,18 +146,9 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                   />
                 </div>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Employer</Label>
-                <Input
-                  id="name"
-                  placeholder="Employer name"
-                  onChange={(e) => setTask({ ...task, employer: e.target.value })}
-                  required
-                />
-              </div>
               <Button type="submit" className="w-full" onClick={handleSubmit}>
-              {loading ? "Processing" : "Create an new Task"}
-            </Button>
+                {loading ? "Processing" : "Assign an new Task"}
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -171,4 +157,4 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
   );
 };
 
-export default AddForm;
+export default AssignForm;

@@ -22,24 +22,22 @@ interface TableComponentProps {
   titles: string[];
   data: {
     _id: string;
-    name: string;
-    writer: string;
-    description: string;
-    deadline: string;
-    payment: string;
-    paid: string;
-    status: string;
-    employer: string;
+    firstname: string;
+    lastname: string;
+    nationalid: string;
+    whatsappnumber: string;
+    address: string;
+    email: string;
+    verifyed: boolean;
+    role: string;
   }[];
   handleDelete: (id: any) => void;
-  handleAssign: (id: any) => void;
 }
 
-const TableComponent: React.FC<TableComponentProps> = ({
+const UserTable: React.FC<TableComponentProps> = ({
   titles,
   data,
   handleDelete,
-  handleAssign,
 }) => {
   return (
     <div>
@@ -55,28 +53,25 @@ const TableComponent: React.FC<TableComponentProps> = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((item, i) => (
+          {data.map((item) => (
             <TableRow key={item._id}>
               <TableCell className="hidden sm:table-cell">
                 <NotebookText />
               </TableCell>
-              <TableCell className="font-medium">{item.name}</TableCell>
-              <TableCell>{item.writer}</TableCell>
-              <TableCell>{item.description}</TableCell>
+              <TableCell className="font-medium">{item.firstname}</TableCell>
+              <TableCell>{item.lastname}</TableCell>
+              <TableCell>{item.nationalid}</TableCell>
               <TableCell className="hidden md:table-cell">
-                {new Date(item.deadline).toDateString()}
+                {item.whatsappnumber}
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                {item.payment}
+                {item.email}
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                {item.paid}
+                <Badge variant={"outline"}>{item.verifyed? "Verified" : "Not Verified"}</Badge>
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                <Badge variant={"outline"}>{item.payment}</Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">
-                {item.employer}
+                <Badge variant={"outline"}>{item.role}</Badge>
               </TableCell>
               <TableCell>
                 <DropdownMenu>
@@ -88,7 +83,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem onClick={(e) => handleAssign(item._id)}>Assign</DropdownMenuItem>
+                    <DropdownMenuItem>Edit</DropdownMenuItem>
                     <DropdownMenuItem onClick={(e) => handleDelete(item._id)}>
                       Delete
                     </DropdownMenuItem>
@@ -103,4 +98,4 @@ const TableComponent: React.FC<TableComponentProps> = ({
   );
 };
 
-export default TableComponent;
+export default UserTable;

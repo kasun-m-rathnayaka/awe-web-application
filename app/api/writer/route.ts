@@ -1,6 +1,8 @@
+//
 import { connect } from "@/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 import Task from "@/models/jobModel";
+import User from "@/models/userModel";
 
 connect();
 
@@ -60,10 +62,10 @@ export async function POST(request: NextRequest) {
 
 export const GET = async () => {
   try {
-    const tasks = await Task.find();
+    const tasks = await User.find();
     return new NextResponse(JSON.stringify(tasks), { status: 200 });
   } catch (error: any) {
-    return new NextResponse("error with featching tasks " + error, {
+    return new NextResponse("error with featching users " + error, {
       status: 500,
     });
   }

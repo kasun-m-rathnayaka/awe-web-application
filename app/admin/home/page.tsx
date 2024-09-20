@@ -1,5 +1,5 @@
 "use client";
-import { File, ListFilter, PlusCircle } from "lucide-react";
+import { CircleX, File, ListFilter, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,9 +24,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AddForm from "@/components/AddForm";
 import toast from "react-hot-toast";
+import AssignForm from "@/components/AssignForm";
 
 const page = () => {
   const [open, setOpen] = useState(false);
+  const [openAssign, setOpenAssign] = useState(false);
+  const [assignId, setAssignId] = useState()
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
     fetchData();
@@ -66,6 +69,11 @@ const page = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  const handleAssign = async (id: any) => {
+    setAssignId(id)
+    setOpenAssign(true);
+  }
   return (
     <div>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -84,6 +92,7 @@ const page = () => {
               </TabsList> */}
                 <div className="ml-auto flex items-center gap-2">
                   {open && <AddForm setOpen={setOpen} />}
+                  {openAssign && <AssignForm setOpenAssign={setOpenAssign} id={assignId}/>}
                   {/* <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-7 gap-1">
@@ -111,7 +120,7 @@ const page = () => {
                     Export
                   </span>
                 </Button> */}
-                  {open == false ? (
+                  {open == false && openAssign == false ? (
                     <Button
                       size="sm"
                       className="h-7 gap-1"
@@ -126,9 +135,12 @@ const page = () => {
                     <Button
                       size="sm"
                       className="h-7 gap-1 bg-red-600 hover:bg-red-700"
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        setOpen(false);
+                        setOpenAssign(false);
+                      }}
                     >
-                      <PlusCircle className="h-3.5 w-3.5" />
+                      <CircleX className="h-3.5 w-3.5" />
                       <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                         Close Menu
                       </span>
@@ -149,12 +161,13 @@ const page = () => {
                       titles={titles}
                       data={tasks}
                       handleDelete={handleDelete}
+                      handleAssign={handleAssign}
                     />
                   </CardContent>
                   <CardFooter>
                     <div className="text-xs text-muted-foreground">
                       Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                      products
+                      Tasks
                     </div>
                   </CardFooter>
                 </Card>
