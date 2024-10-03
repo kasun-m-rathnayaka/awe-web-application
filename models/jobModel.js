@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const taskSchema = new mongoose.Schema({
   name: { type: String, required: true },
   writer: { type: String, required: false, default: "not assigned" },
-  description: { type: String, required: true },
+  description: { type: String, required: false },
   deadline: { type: Date, required: true },
   payment: { type: Number, required: true },
   paid: { type: Number, required: false, default: 0 },

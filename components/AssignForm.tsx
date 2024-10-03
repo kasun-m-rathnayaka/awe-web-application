@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -16,10 +17,10 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 interface AddFormProps {
   setOpenAssign: (open: boolean) => void;
-  id:any
+  id: any;
 }
 
-const AssignForm = ({ setOpenAssign,id }: AddFormProps) => {
+const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
   const [loading, setLoading] = useState(false);
   const [task, setTask] = useState({
     name: "",
@@ -34,7 +35,7 @@ const AssignForm = ({ setOpenAssign,id }: AddFormProps) => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-     console.log(id)
+      console.log(id);
       toast.success("Task assigned successfully");
       setLoading(false);
     } catch (error: any) {
@@ -58,16 +59,18 @@ const AssignForm = ({ setOpenAssign,id }: AddFormProps) => {
         <Card className="mx-auto max-w-sm ">
           <CardHeader>
             <CardTitle className="text-xl">Assign a new Task</CardTitle>
-            <CardDescription>Assign new jobs and Tasks to writers</CardDescription>
+            <CardDescription>
+              Assign new jobs and Tasks to writers
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="first-name">Name</Label>
+                  <Label htmlFor="first-name">Job Name</Label>
                   <Input
                     id="name"
-                    placeholder="Demo1001"
+                    placeholder="AW1001"
                     onChange={(e) => setTask({ ...task, name: e.target.value })}
                     required
                   />
@@ -76,7 +79,7 @@ const AssignForm = ({ setOpenAssign,id }: AddFormProps) => {
                   <Label htmlFor="last-name">Writer</Label>
                   <Input
                     id="writer"
-                    placeholder="AWE001"
+                    placeholder="Demo1001"
                     onChange={(e) =>
                       setTask({ ...task, writer: e.target.value })
                     }
@@ -92,7 +95,6 @@ const AssignForm = ({ setOpenAssign,id }: AddFormProps) => {
                     onChange={(e) =>
                       setTask({ ...task, description: e.target.value })
                     }
-                    required
                   />
                 </div>
               </div>
@@ -129,12 +131,12 @@ const AssignForm = ({ setOpenAssign,id }: AddFormProps) => {
                     type="number"
                     placeholder="2000"
                     onChange={(e) => setTask({ ...task, paid: e.target.value })}
-                    required
                   />
                 </div>
               </div>
               <div className="grid gap-2">
                 <div className="grid gap-2">
+                  
                   <Label htmlFor="address">Status</Label>
                   <Input
                     id="address"

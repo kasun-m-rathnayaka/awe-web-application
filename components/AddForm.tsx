@@ -9,6 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -20,6 +29,7 @@ interface AddFormProps {
 
 const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
   const [loading, setLoading] = useState(false);
+  const [checking, setChecking] = useState(false);
   const [task, setTask] = useState({
     name: "",
     writer: "",
@@ -37,13 +47,30 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
       const response = await axios.post("/api/tasks", task);
       console.log("Task added successfully", response.data);
       toast.success("Task added successfully");
-      setLoading(false)
-    } catch (error:any) {
+      setLoading(false);
+    } catch (error: any) {
       console.log("error", error.response);
-      toast.error(error.response.data.message)
-      setLoading(false)
+      toast.error(error.response.data.message);
+      setLoading(false);
     }
   };
+
+  const handleValueChange = (value: any) => {
+    setTask({ ...task, status: value });
+    console.log(task);
+  };
+
+  const handleCheck = async (value: string) => {
+    try {
+      if (task.writer.length > 3) {
+        const response = await axios.get(`/api/users/user/${value}`);
+        setChecking(false);
+      }
+    } catch (error: any) {
+      console.log("error", error.response);
+      toast.error(error.response.data.message);      
+    }
+  }
 
   return (
     <motion.div
@@ -69,20 +96,35 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                   <Input
                     id="name"
                     placeholder="Demo1001"
-                    onChange={(e) =>
-                      setTask({ ...task, name: e.target.value })
-                    }
+                    onChange={(e) => setTask({ ...task, name: e.target.value })}
                     required
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="last-name">Writer</Label>
+                  <Label htmlFor="last-name">
+                    Writer
+                    {task.writer.length > 3 ? (
+                      checking == true ? (
+                        <span className="pl-5 text-red-400 text-sm">
+                          checking ...
+                        </span>
+                      ) : (
+                        <span className="pl-5 text-green-400 text-sm">
+                          wirter-found
+                        </span>
+                      )
+                    ) : (
+                      ""
+                    )}
+                  </Label>
                   <Input
                     id="writer"
                     placeholder="AWE001"
-                    onChange={(e) =>
-                      setTask({ ...task, writer: e.target.value })
-                    }
+                    onChange={(e) => {
+                      setTask({ ...task, writer: e.target.value });
+                      setChecking(true);
+                      handleCheck(e.target.value);
+                    }}
                   />
                 </div>
               </div>
@@ -131,9 +173,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                     id="last-name"
                     type="number"
                     placeholder="2000"
-                    onChange={(e) =>
-                      setTask({ ...task, paid: e.target.value })
-                    }
+                    onChange={(e) => setTask({ ...task, paid: e.target.value })}
                     required
                   />
                 </div>
@@ -141,14 +181,20 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
               <div className="grid gap-2">
                 <div className="grid gap-2">
                   <Label htmlFor="address">Status</Label>
-                  <Input
-                    id="address"
-                    placeholder="Pending"
-                    onChange={(e) =>
-                      setTask({ ...task, status: e.target.value })
-                    }
-                    required
-                  />
+                  <Select onValueChange={handleValueChange}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="In Progress">In Progress</SelectItem>
+                        <SelectItem value="Amendment">Amendment</SelectItem>
+                        <SelectItem value="Done">Done</SelectItem>
+                        <SelectItem value="Attention">Attention</SelectItem>
+                        <SelectItem value="Returned">Returned</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
               <div className="grid gap-2">
@@ -156,13 +202,15 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                 <Input
                   id="name"
                   placeholder="Employer name"
-                  onChange={(e) => setTask({ ...task, employer: e.target.value })}
+                  onChange={(e) =>
+                    setTask({ ...task, employer: e.target.value })
+                  }
                   required
                 />
               </div>
               <Button type="submit" className="w-full" onClick={handleSubmit}>
-              {loading ? "Processing" : "Create an new Task"}
-            </Button>
+                {loading ? "Processing" : "Create an new Task"}
+              </Button>
             </div>
           </CardContent>
         </Card>

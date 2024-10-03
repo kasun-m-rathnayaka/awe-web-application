@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -18,6 +19,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { MoreHorizontal } from "lucide-react";
+import PayForm from "./PayForm";
+import { set } from "mongoose";
 
 interface Project {
   name: string;
@@ -30,6 +33,15 @@ interface Project {
 }
 
 const UserDetailsTable = ({ projects }: { projects: Project[] }) => {
+  const [open, setOpen] = useState(false);
+  const handlePay = () => {
+    setOpen(true);
+  };
+
+  const handleDelete = () => {
+    console.log("delete");
+  };
+
   return (
     <div>
       <Card>
@@ -37,6 +49,7 @@ const UserDetailsTable = ({ projects }: { projects: Project[] }) => {
           <CardTitle>Ongoing Projects</CardTitle>
         </CardHeader>
         <CardContent>
+          {open && <PayForm setOpen={setOpen} />}
           <Table>
             <TableHeader>
               <TableRow>
@@ -55,10 +68,19 @@ const UserDetailsTable = ({ projects }: { projects: Project[] }) => {
                   <TableCell>{project.name}</TableCell>
                   <TableCell>{project.description}</TableCell>
                   <TableCell>{project.deadline}</TableCell>
-                  <TableCell>${project.payment.toFixed(2)}</TableCell>
-                  <TableCell>${project.paid.toFixed(2)}</TableCell>
+                  <TableCell>Rs.{project.payment.toFixed(2)}</TableCell>
+                  <TableCell>Rs.{project.paid.toFixed(2)}</TableCell>
                   <TableCell>
-                    <Badge variant="outline">{project.status}</Badge>
+                    <Badge
+                      variant="outline"
+                      className={`${
+                        project.status == "close"
+                          ? "bg-green-200"
+                          : "bg-red-200"
+                      }`}
+                    >
+                      {project.status}
+                    </Badge>
                   </TableCell>
                   <TableCell>{project.employer}</TableCell>
                   <TableCell>
@@ -75,8 +97,12 @@ const UserDetailsTable = ({ projects }: { projects: Project[] }) => {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Pay</DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                        <DropdownMenuItem onClick={handlePay}>
+                          Pay
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleDelete}>
+                          Delete
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>

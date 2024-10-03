@@ -5,6 +5,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Page = ({ params }: { params: { id: string } }) => {
+  const [open, setOpen] = useState(false);
   const [user, setUser] = useState({
     image: "",
     firstname: "Loading ",

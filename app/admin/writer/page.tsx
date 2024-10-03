@@ -13,10 +13,10 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import Header from "@/components/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import AddForm from "@/components/AddForm";
 import toast from "react-hot-toast";
 import UserTable from "@/components/UserTable";
 import { useRouter } from "next/navigation";
+import AddWriter from "@/components/AddWriter";
 
 const Page = () => {
   const router = useRouter()
@@ -73,12 +73,12 @@ const titles = [
             <Tabs defaultValue="all">
               <div className="flex items-center">
                 <div className="ml-auto flex items-center gap-2">
-                  {open && <AddForm setOpen={setOpen} />}
+                  {open && <AddWriter setOpen={setOpen} />}
                   {open == false ? (
                     <Button
                       size="sm"
                       className="h-7 gap-1"
-                      onClick={() => setOpen(false)}
+                      onClick={() => setOpen(true)}
                     >
                       <PlusCircle className="h-3.5 w-3.5" />
                       <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
