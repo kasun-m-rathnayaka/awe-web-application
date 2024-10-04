@@ -1,26 +1,11 @@
+"use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { User, Phone, Mail, CheckCircle, XCircle } from "lucide-react";
+import { Phone, Mail, CheckCircle, XCircle } from "lucide-react";
 import { IdCardIcon } from "@radix-ui/react-icons";
 import UserDetailsTable from "./UserDetailsTable";
-
-interface Project {
-  name: string;
-  description: string;
-  deadline: string;
-  payment: number;
-  paid: number;
-  status: string;
-  employer: string;
-}
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { set } from "mongoose";
 
 interface UserDetailsProps {
   user: {
@@ -32,11 +17,32 @@ interface UserDetailsProps {
     email: string;
     isVerified: boolean;
     role: string;
-    projects: Project[]
+    projects: any[];
   };
 }
 
 export default function UserDetails({ user }: UserDetailsProps) {
+  const projectList: { [key: string]: any }[] = [];
+
+  useEffect(() => {
+    featchJobs();
+  }, [user.projects]);
+
+  const featchJobs = async () => {
+    if (user.projects.length > 0) {
+      user.projects.map(async (project) => {
+        try {
+          const response = await axios.get(
+            `/api/tasks/${project._id}`
+          );
+          projectList.push(response.data);
+        } catch (error: any) {
+          console.log({ error: error });
+        }
+      });
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 space-y-6">
       <Card className="overflow-hidden">
@@ -74,7 +80,7 @@ export default function UserDetails({ user }: UserDetailsProps) {
           </div>
         </CardContent>
       </Card>
-      <UserDetailsTable projects={user.projects} userId={user.firstname}/>
+      <UserDetailsTable projects={projectList} userId={user.firstname} />
     </div>
   );
 }

@@ -17,6 +17,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     role: "",
     projects: []
   });
+  
   const featchUser = async () => {
     try {
       const response = await axios.get(`/api/writer/${params.id}`);

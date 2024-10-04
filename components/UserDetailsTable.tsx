@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -20,21 +20,22 @@ import {
 import { Button } from "./ui/button";
 import { MoreHorizontal } from "lucide-react";
 import PayForm from "./PayForm";
-import { set } from "mongoose";
+import axios from "axios";
 
-interface Project {
-  name: string;
-  description: string;
-  deadline: string;
-  payment: number;
-  paid: number;
-  status: string;
-  employer: string;
-}
-
-const UserDetailsTable = ({ projects,userId }: { projects: Project[]; userId: string; }) => {
+const UserDetailsTable = ({ projects, userId }: { projects: any[]; userId: string; }) => {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState<string | undefined>(undefined);
+
+  console.log(projects)
+  interface Project {
+    name: string;
+    description: string;
+    deadline: string;
+    payment: number;
+    paid: number;
+    status: string;
+    employer: string;
+  }
   
   const handlePay = (project: Project) => {
     setProjectName(project.name);
@@ -66,51 +67,54 @@ const UserDetailsTable = ({ projects,userId }: { projects: Project[]; userId: st
               </TableRow>
             </TableHeader>
             <TableBody>
-              {projects.map((project, index) => (
-                <TableRow key={index}>
-                  <TableCell>{project.name}</TableCell>
-                  <TableCell>{project.description}</TableCell>
-                  <TableCell>{project.deadline}</TableCell>
-                  <TableCell>Rs.{project.payment.toFixed(2)}</TableCell>
-                  <TableCell>Rs.{project.paid.toFixed(2)}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={`${
-                        project.status == "close"
-                          ? "bg-green-200"
-                          : "bg-red-200"
-                      }`}
-                    >
-                      {project.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>{project.employer}</TableCell>
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          aria-haspopup="true"
-                          size="icon"
-                          variant="ghost"
-                        >
-                          <MoreHorizontal className="h-4 w-4" />
-                          <span className="sr-only">Toggle menu</span>
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={()=>handlePay(project)}>
-                          Pay
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={handleDelete}>
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {projects.map((project, index) => {
+                console.log(project);
+                return (
+                  <TableRow key={index}>
+                    <TableCell>{project.name}</TableCell>
+                    <TableCell>{project.description}</TableCell>
+                    <TableCell>{project.deadline}</TableCell>
+                    <TableCell>Rs.{project.payment.toFixed(2)}</TableCell>
+                    <TableCell>Rs.{project.paid.toFixed(2)}</TableCell>
+                    <TableCell>
+                      <Badge
+                        variant="outline"
+                        className={`${
+                          project.status == "close"
+                            ? "bg-green-200"
+                            : "bg-red-200"
+                        }`}
+                      >
+                        {project.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>{project.employer}</TableCell>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            aria-haspopup="true"
+                            size="icon"
+                            variant="ghost"
+                          >
+                            <MoreHorizontal className="h-4 w-4" />
+                            <span className="sr-only">Toggle menu</span>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuItem onClick={()=>handlePay(project)}>
+                            Pay
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={handleDelete}>
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </CardContent>
