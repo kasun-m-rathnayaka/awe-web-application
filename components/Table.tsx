@@ -73,7 +73,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                 {item.paid}
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                <Badge variant={"outline"}>{item.payment}</Badge>
+                <Badge variant={"outline"}>{item.status}</Badge>
               </TableCell>
               <TableCell className="hidden md:table-cell">
                 {item.employer}

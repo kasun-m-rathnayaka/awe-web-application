@@ -57,7 +57,6 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
 
   const handleValueChange = (value: any) => {
     setTask({ ...task, status: value });
-    console.log(task);
   };
 
   const handleCheck = async (value: string) => {
@@ -68,7 +67,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
       }
     } catch (error: any) {
       console.log("error", error.response);
-      toast.error(error.response.data.message);      
+      // toast.error(error.response.data.message);      
     }
   }
 

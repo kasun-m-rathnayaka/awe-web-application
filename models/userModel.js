@@ -15,13 +15,7 @@ const userSchema = new mongoose.Schema({
   verifytoken: { type: String },
   projects: [
     {
-      name: { type: String, required: true },
-      description: { type: String, required: true },
-      deadline: { type: Date, required: true },
-      payment: { type: Number, required: true },
-      paid: { type: Number, required: false, default: 0 },
-      status: { type: String, required: false, default: "open" },
-      employer: { type: String, required: false, default: "none" },
+      _id: { type: mongoose.Schema.Types.ObjectId, ref: "projects" },
     },
   ],
 });
