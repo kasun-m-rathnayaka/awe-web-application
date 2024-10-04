@@ -22,7 +22,8 @@ interface UserDetailsProps {
 }
 
 export default function UserDetails({ user }: UserDetailsProps) {
-  const projectList: { [key: string]: any }[] = [];
+  const [projectList, setProjectList] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     featchJobs();
@@ -35,11 +36,13 @@ export default function UserDetails({ user }: UserDetailsProps) {
           const response = await axios.get(
             `/api/tasks/${project._id}`
           );
-          projectList.push(response.data);
+          setProjectList((prev) => [...prev, response.data]);
         } catch (error: any) {
           console.log({ error: error });
-        }
+        } 
       });
+      console.log(projectList)
+      setIsLoading(false);
     }
   };
 
@@ -80,7 +83,7 @@ export default function UserDetails({ user }: UserDetailsProps) {
           </div>
         </CardContent>
       </Card>
-      <UserDetailsTable projects={projectList} userId={user.firstname} />
+      {!isLoading && <UserDetailsTable projects={projectList} userId={user.firstname} />}
     </div>
   );
 }

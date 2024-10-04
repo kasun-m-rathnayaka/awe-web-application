@@ -25,7 +25,6 @@ import axios from "axios";
 const UserDetailsTable = ({ projects, userId }: { projects: any[]; userId: string; }) => {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState<string | undefined>(undefined);
-
   console.log(projects)
   interface Project {
     name: string;

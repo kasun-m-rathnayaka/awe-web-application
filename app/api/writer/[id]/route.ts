@@ -58,7 +58,7 @@ export const PATCH = async (request: Request, { params }: { params: any }) => {
     const newpaidammount = parseInt(paid) + parseInt(task.ammount);
     
     // this feature needs to be implemented 
-    if (parseInt(payment) > newpaidammount) {
+    if (parseInt(payment) < newpaidammount) {
       return NextResponse.json(
         {
           message: "Payment is exceeding the required ammount",
@@ -67,6 +67,7 @@ export const PATCH = async (request: Request, { params }: { params: any }) => {
         { status: 400 }
       );
     }
+
     const updateTask = await Task.findByIdAndUpdate(
       { _id: _id },
       { paid: newpaidammount },
