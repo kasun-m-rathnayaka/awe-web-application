@@ -18,21 +18,22 @@ import { CircleX } from "lucide-react";
 
 interface AddFormProps {
   setOpen: (open: boolean) => void;
+  project: string | undefined;
+  userId: string;
 }
 
-const PayForm: React.FC<AddFormProps> = ({ setOpen }) => {
+const PayForm: React.FC<AddFormProps> = ({ setOpen,project,userId }) => {
   const [loading, setLoading] = useState(false);
   const [task, setTask] = useState({
-    id: "",
+    id: project,
     ammount: "",
   });
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/tasks", task);
-      console.log("Task added successfully", response.data);
-      toast.success("Task added successfully");
+      const response = await axios.patch(`/api/writer/${userId}`, task);
+      toast.success("Payment Successful");
       setLoading(false)
     } catch (error:any) {
       console.log("error", error.response);
@@ -52,8 +53,8 @@ const PayForm: React.FC<AddFormProps> = ({ setOpen }) => {
         <div>
           <Toaster />
         </div>
-        <Card className="mx-auto max-w-sm cursor-pointer" onClick={()=>setOpen(false)}>
-        <CircleX className="mt-2 ml-2" />
+        <Card className="mx-auto max-w-sm cursor-pointer">
+        <CircleX className="mt-2 ml-2" onClick={()=>setOpen(false)} />
           <CardHeader>
             <CardTitle className="text-xl">Confirm your payment</CardTitle>
             <CardDescription>Enter Payment details</CardDescription>

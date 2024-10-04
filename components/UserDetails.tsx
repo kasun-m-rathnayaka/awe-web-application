@@ -74,7 +74,7 @@ export default function UserDetails({ user }: UserDetailsProps) {
           </div>
         </CardContent>
       </Card>
-      <UserDetailsTable projects={user.projects} />
+      <UserDetailsTable projects={user.projects} userId={user.firstname}/>
     </div>
   );
 }

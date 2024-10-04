@@ -32,9 +32,12 @@ interface Project {
   employer: string;
 }
 
-const UserDetailsTable = ({ projects }: { projects: Project[] }) => {
+const UserDetailsTable = ({ projects,userId }: { projects: Project[]; userId: string; }) => {
   const [open, setOpen] = useState(false);
-  const handlePay = () => {
+  const [projectName, setProjectName] = useState<string | undefined>(undefined);
+  
+  const handlePay = (project: Project) => {
+    setProjectName(project.name);
     setOpen(true);
   };
 
@@ -49,7 +52,7 @@ const UserDetailsTable = ({ projects }: { projects: Project[] }) => {
           <CardTitle>Ongoing Projects</CardTitle>
         </CardHeader>
         <CardContent>
-          {open && <PayForm setOpen={setOpen} />}
+          {open && <PayForm setOpen={setOpen} project={projectName} userId={userId}/>}
           <Table>
             <TableHeader>
               <TableRow>
@@ -97,7 +100,7 @@ const UserDetailsTable = ({ projects }: { projects: Project[] }) => {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={handlePay}>
+                        <DropdownMenuItem onClick={()=>handlePay(project)}>
                           Pay
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={handleDelete}>

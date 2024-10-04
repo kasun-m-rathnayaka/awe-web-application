@@ -1,7 +1,8 @@
 import { connect } from "@/dbConfig";
 import { NextResponse } from "next/server";
 import User from "@/models/userModel";
-var ObjectId = require('mongodb').ObjectId;
+import Task from "@/models/jobModel";
+var ObjectId = require("mongodb").ObjectId;
 
 connect();
 
@@ -35,13 +36,48 @@ export const GET = async (request: Request, { params }: { params: any }) => {
         { message: "User does exists", user: user },
         { status: 200 }
       );
-    }
-    else{
-      return NextResponse.json({ message: "User does not exists", success: false }, { status: 400 }); 
+    } else {
+      return NextResponse.json(
+        { message: "User does not exists", success: false },
+        { status: 400 }
+      );
     }
   } catch (error: any) {
     return new NextResponse("error with featching users " + error, {
       status: 500,
     });
+  }
+};
+
+export const PATCH = async (request: Request, { params }: { params: any }) => {
+  try {
+    const userId = params.id;
+    const task = await request.json();
+    const featchTask = await Task.findOne({ name: task.id });
+    const { _id, payment, paid } = featchTask;
+    const newpaidammount = parseInt(paid) + parseInt(task.ammount);
+    if (parseInt(payment) > newpaidammount) {
+      return NextResponse.json(
+        {
+          message: "Payment is exceeding the required ammount",
+          success: false,
+        },
+        { status: 400 }
+      );
+    }
+    const updateTask = await Task.findByIdAndUpdate(
+      { _id: _id },
+      { paid: newpaidammount },
+      { new: true }
+    );
+    if (updateTask) {
+      return NextResponse.json("task updated successfully", { status: 200 });
+    }
+    return NextResponse.json(
+      { message: "Task does not exists", success: false },
+      { status: 400 }
+    );
+  } catch (error: any) {
+    return new NextResponse("Error updating user: " + error, { status: 500 });
   }
 };
