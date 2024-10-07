@@ -42,7 +42,13 @@ const UserDetailsTable = ({ projects, userId }: { projects: any[]; userId: strin
   };
 
   const handleDelete = () => {
-    console.log("delete");
+    try {
+      axios.delete(`/api/tasks/${userId}`).then((res) => {
+        console.log(res);
+      });
+    } catch (error: any) {
+      console.log("error", error.response);
+    }
   };
 
   return (

@@ -94,7 +94,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                   <Label htmlFor="first-name">Name</Label>
                   <Input
                     id="name"
-                    placeholder="Demo1001"
+                    placeholder="AWE001"
                     onChange={(e) => setTask({ ...task, name: e.target.value })}
                     required
                   />
@@ -118,7 +118,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                   </Label>
                   <Input
                     id="writer"
-                    placeholder="AWE001"
+                    placeholder="Demo1001"
                     onChange={(e) => {
                       setTask({ ...task, writer: e.target.value });
                       setChecking(true);

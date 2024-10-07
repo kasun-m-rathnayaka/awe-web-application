@@ -33,7 +33,7 @@ const Page = () => {
   }, [search]);
 
   const titles = [
-    "First Name",
+    "User ID",
     "Last Name",
     "National ID",
     "WhatsApp Number",

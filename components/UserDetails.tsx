@@ -41,7 +41,6 @@ export default function UserDetails({ user }: UserDetailsProps) {
           console.log({ error: error });
         } 
       });
-      console.log(projectList)
       setIsLoading(false);
     }
   };

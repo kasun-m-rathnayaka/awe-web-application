@@ -46,7 +46,6 @@ const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
       }
     } catch (error: any) {
       console.log("error", error.response);
-      toast.error(error.response.data.message);
     }
   };
   const handleSubmit = async () => {
@@ -57,7 +56,7 @@ const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
       setLoading(false);
     } catch (error: any) {
       console.log("error", error.response);
-      // toast.error(error.response.data.message);
+      toast.error(error.response.data.message);
       setLoading(false);
     }
   };

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { MoreHorizontal, NotebookText } from "lucide-react";
 import {
@@ -17,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
+import VerifyForm from "./VerifyForm";
 
 interface TableComponentProps {
   titles: string[];
@@ -32,15 +34,16 @@ interface TableComponentProps {
     role: string;
   }[];
   handleDelete: (id: any) => void;
-  handleClick: (id:any) => void;
+  handleClick: (id: any) => void;
 }
 
 const UserTable: React.FC<TableComponentProps> = ({
   titles,
   data,
   handleDelete,
-  handleClick
+  handleClick,
 }) => {
+  const [open, setOpen] = React.useState(false);
   return (
     <div>
       <Table>
@@ -56,7 +59,12 @@ const UserTable: React.FC<TableComponentProps> = ({
         </TableHeader>
         <TableBody>
           {data.map((item) => (
-            <TableRow key={item._id} onClick={()=>handleClick(item._id)} className=" cursor-pointer">
+            <TableRow
+              key={item._id}
+              onClick={() => handleClick(item._id)}
+              className=" cursor-pointer"
+            >
+              {open && <VerifyForm setOpen={setOpen} userId={item._id} />}
               <TableCell className="hidden sm:table-cell">
                 <NotebookText />
               </TableCell>
@@ -87,7 +95,9 @@ const UserTable: React.FC<TableComponentProps> = ({
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setOpen(true)}>
+                      Verify
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={(e) => handleDelete(item._id)}>
                       Delete
                     </DropdownMenuItem>
