@@ -22,11 +22,11 @@ const Page = () => {
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [openAssign, setOpenAssign] = useState(false);
-  const [assignId, setAssignId] = useState()
+  const [assignId, setAssignId] = useState();
   const [tasks, setTasks] = useState([]);
-  
+
   useEffect(() => {
-    handleSearch()
+    handleSearch();
   }, [search]);
 
   useEffect(() => {
@@ -57,15 +57,19 @@ const Page = () => {
   };
 
   const handleSearch = async () => {
-    try {
-      setTasks([]);
-      const response = await axios.get(`/api/search/${search}`).then((res) => {
-        setTasks(res.data);
-      });
-    } catch (error: any) {
-      console.log("error", error.response);
+    if (search.length > 3) {
+      try {
+        setTasks([]);
+        const response = await axios
+          .get(`/api/search/${search}`)
+          .then((res) => {
+            setTasks(res.data);
+          });
+      } catch (error: any) {
+        console.log("error", error.response);
+      }
     }
-  }
+  };
 
   const handleDelete = async (id: any) => {
     try {
@@ -80,22 +84,23 @@ const Page = () => {
   };
 
   const handleAssign = async (id: any) => {
-    setAssignId(id)
+    setAssignId(id);
     setOpenAssign(true);
-  }
+  };
 
-  
   return (
     <div>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-          <Header setSearch={setSearch}/>
+          <Header setSearch={setSearch} />
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
             <Tabs defaultValue="all">
               <div className="flex items-center">
                 <div className="ml-auto flex items-center gap-2">
                   {open && <AddForm setOpen={setOpen} />}
-                  {openAssign && <AssignForm setOpenAssign={setOpenAssign} id={assignId}/>}
+                  {openAssign && (
+                    <AssignForm setOpenAssign={setOpenAssign} id={assignId} />
+                  )}
                   {open == false && openAssign == false ? (
                     <Button
                       size="sm"
@@ -142,8 +147,7 @@ const Page = () => {
                   </CardContent>
                   <CardFooter>
                     <div className="text-xs text-muted-foreground">
-                      Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                      Tasks
+                      Showing <strong>1-10</strong> of <strong>32</strong> Tasks
                     </div>
                   </CardFooter>
                 </Card>

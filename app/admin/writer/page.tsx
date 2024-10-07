@@ -19,19 +19,20 @@ import { useRouter } from "next/navigation";
 import AddWriter from "@/components/AddWriter";
 
 const Page = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+
   useEffect(() => {
     fetchData();
   }, []);
 
   useEffect(() => {
-    handleSearch()
+    handleSearch();
   }, [search]);
-  
-const titles = [
+
+  const titles = [
     "First Name",
     "Last Name",
     "National ID",
@@ -40,18 +41,22 @@ const titles = [
     "Verified",
     "Role",
     "Actions",
-];
+  ];
 
-const handleSearch = async () => {
-  try {
-    setTasks([]);
-    const response = await axios.get(`/api/job/search/${search}`).then((res) => {
-      setTasks(res.data);
-    });
-  } catch (error: any) {
-    console.log("error", error.response);
-  }
-}
+  const handleSearch = async () => {
+    if (search.length > 3) {
+      try {
+        setTasks([]);
+        const response = await axios
+          .get(`/api/search/job/${search}`)
+          .then((res) => {
+            setTasks(res.data);
+          });
+      } catch (error: any) {
+        console.log("error", error.response);
+      }
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -77,8 +82,8 @@ const handleSearch = async () => {
   };
 
   const handleClick = (id: any) => {
-    router.push(`/admin/${id}`)
-  }
+    router.push(`/admin/${id}`);
+  };
 
   return (
     <div>
@@ -144,7 +149,7 @@ const handleSearch = async () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
