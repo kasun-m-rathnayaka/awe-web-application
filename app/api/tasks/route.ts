@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
 
 export const GET = async () => {
   try {
-    const tasks = await Task.find();
+    const tasks = await Task.find().limit(10);
     return new NextResponse(JSON.stringify(tasks), { status: 200 });
   } catch (error: any) {
     return new NextResponse("error with featching tasks " + error, {

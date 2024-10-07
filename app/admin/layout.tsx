@@ -17,7 +17,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-    const router = useRouter();
+  const router = useRouter();
   const handleLogout = async() => {
     try {
         await axios.get('/api/users/logout')
