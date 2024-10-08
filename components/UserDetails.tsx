@@ -5,7 +5,6 @@ import { IdCardIcon } from "@radix-ui/react-icons";
 import UserDetailsTable from "./UserDetailsTable";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { set } from "mongoose";
 
 interface UserDetailsProps {
   user: {
@@ -26,24 +25,26 @@ export default function UserDetails({ user }: UserDetailsProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    featchJobs();
-  }, [user.projects]);
+    const featchJobs = async () => {
+      if (user.projects.length > 0) {
+        user.projects.forEach(async (project) => {
+          try {
+            console.log('ran')
+            const response = await axios.get(
+              `/api/tasks/${project._id}`
+            );
+            setProjectList((prev) => [...prev, response.data]);
+          } catch (error: any) {
+            console.log({ error: error });
+          }
+        });
+        
+        setIsLoading(false);
+      }
+    };
 
-  const featchJobs = async () => {
-    if (user.projects.length > 0) {
-      user.projects.map(async (project) => {
-        try {
-          const response = await axios.get(
-            `/api/tasks/${project._id}`
-          );
-          setProjectList((prev) => [...prev, response.data]);
-        } catch (error: any) {
-          console.log({ error: error });
-        } 
-      });
-      setIsLoading(false);
-    }
-  };
+    featchJobs();
+  }, []);
 
   return (
     <div className="container mx-auto p-4 space-y-6">

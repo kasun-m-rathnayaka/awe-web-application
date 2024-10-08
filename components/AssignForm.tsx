@@ -23,6 +23,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+
 interface AddFormProps {
   setOpenAssign: (open: boolean) => void;
   id: any;
@@ -56,7 +57,7 @@ const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
       setLoading(false);
     } catch (error: any) {
       console.log("error", error.response);
-      toast.error(error.response.data.message);
+      toast.error(error.response.data);
       setLoading(false);
     }
   };

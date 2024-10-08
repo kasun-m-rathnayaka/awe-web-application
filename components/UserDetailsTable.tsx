@@ -22,10 +22,16 @@ import { MoreHorizontal } from "lucide-react";
 import PayForm from "./PayForm";
 import axios from "axios";
 
-const UserDetailsTable = ({ projects, userId }: { projects: any[]; userId: string; }) => {
+const UserDetailsTable = ({
+  projects,
+  userId,
+}: {
+  projects: any[];
+  userId: string;
+}) => {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState<string | undefined>(undefined);
-  console.log(projects)
+
   interface Project {
     name: string;
     description: string;
@@ -35,7 +41,7 @@ const UserDetailsTable = ({ projects, userId }: { projects: any[]; userId: strin
     status: string;
     employer: string;
   }
-  
+
   const handlePay = (project: Project) => {
     setProjectName(project.name);
     setOpen(true);
@@ -58,7 +64,9 @@ const UserDetailsTable = ({ projects, userId }: { projects: any[]; userId: strin
           <CardTitle>Ongoing Projects</CardTitle>
         </CardHeader>
         <CardContent>
-          {open && <PayForm setOpen={setOpen} project={projectName} userId={userId}/>}
+          {open && (
+            <PayForm setOpen={setOpen} project={projectName} userId={userId} />
+          )}
           <Table>
             <TableHeader>
               <TableRow>
@@ -73,14 +81,14 @@ const UserDetailsTable = ({ projects, userId }: { projects: any[]; userId: strin
             </TableHeader>
             <TableBody>
               {projects.map((project, index) => {
-                console.log(project);
+                console.log(projects);
                 return (
                   <TableRow key={index}>
                     <TableCell>{project.name}</TableCell>
                     <TableCell>{project.description}</TableCell>
-                    <TableCell>{project.deadline}</TableCell>
+                    <TableCell>{new Date(project.deadline).toDateString()}</TableCell>
                     <TableCell>Rs.{project.payment.toFixed(2)}</TableCell>
-                    <TableCell>Rs.{project.paid.toFixed(2)}</TableCell>
+                    <TableCell>Rs.{project.paid && project.paid.toFixed(2)}</TableCell>
                     <TableCell>
                       <Badge
                         variant="outline"
@@ -108,7 +116,7 @@ const UserDetailsTable = ({ projects, userId }: { projects: any[]; userId: strin
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem onClick={()=>handlePay(project)}>
+                          <DropdownMenuItem onClick={() => handlePay(project)}>
                             Pay
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={handleDelete}>

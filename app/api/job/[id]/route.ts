@@ -10,8 +10,14 @@ export const PATCH = async (request: Request, { params }: { params: any }) => {
     const _id = params.id;
     const task = await request.json();
     const { writer, description, deadline, payment, status } = task;
-    console.log(task)
-    
+
+    // check if the task data is complete
+    if ( !deadline || !payment || !status) {
+      return new NextResponse("Please provide all the nessary task details", {
+        status: 400,
+      });
+    }
+
     // featch userdata and append the project to the user
     const user = await User.findOne({firstname:writer});
     if (!user) {
