@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
 export async function getDataFromToken(request:NextRequest) {
@@ -10,3 +10,4 @@ export async function getDataFromToken(request:NextRequest) {
     throw new Error("Invalid token");
   }
 }
+

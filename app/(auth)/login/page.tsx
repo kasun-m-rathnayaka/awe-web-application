@@ -27,7 +27,9 @@ export default function LoginForm() {
       // read token to identify user role
       const token = response.data.token
       console.log(token)
-      router.push('/admin/home')
+      const TokenData = await axios.post('/api/users/verifyuser',token)
+      console.log(TokenData)
+      // router.push('/admin/home')
       toast.success('Login Success')
     } catch (error:any) {
       console.log("error", error.response.data.message);
