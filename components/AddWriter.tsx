@@ -64,10 +64,10 @@ const AddWriter: React.FC<AddFormProps> = ({ setOpen }) => {
           <div className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="first-name">First name</Label>
+                <Label htmlFor="first-name">User ID</Label>
                 <Input
                   id="first-name"
-                  placeholder="Max"
+                  placeholder="Demo1001"
                   onChange={(e) =>
                     setUser({ ...user, firstname: e.target.value })
                   }
@@ -75,7 +75,7 @@ const AddWriter: React.FC<AddFormProps> = ({ setOpen }) => {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="last-name">Last name</Label>
+                <Label htmlFor="last-name">Name</Label>
                 <Input
                   id="last-name"
                   placeholder="Robinson"

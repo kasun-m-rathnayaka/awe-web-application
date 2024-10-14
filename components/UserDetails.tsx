@@ -1,10 +1,7 @@
-"use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, Mail, CheckCircle, XCircle } from "lucide-react";
 import { IdCardIcon } from "@radix-ui/react-icons";
 import UserDetailsTable from "./UserDetailsTable";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 interface UserDetailsProps {
   user: {
@@ -21,31 +18,6 @@ interface UserDetailsProps {
 }
 
 export default function UserDetails({ user }: UserDetailsProps) {
-  const [projectList, setProjectList] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const featchJobs = async () => {
-      if (user.projects.length > 0) {
-        user.projects.forEach(async (project) => {
-          try {
-            console.log('ran')
-            const response = await axios.get(
-              `/api/tasks/${project._id}`
-            );
-            setProjectList((prev) => [...prev, response.data]);
-          } catch (error: any) {
-            console.log({ error: error });
-          }
-        });
-        
-        setIsLoading(false);
-      }
-    };
-
-    featchJobs();
-  }, []);
-
   return (
     <div className="container mx-auto p-4 space-y-6">
       <Card className="overflow-hidden">
@@ -83,7 +55,7 @@ export default function UserDetails({ user }: UserDetailsProps) {
           </div>
         </CardContent>
       </Card>
-      {!isLoading && <UserDetailsTable projects={projectList} userId={user.firstname} />}
+      <UserDetailsTable projects={user.projects} userId={user.firstname} />
     </div>
   );
 }

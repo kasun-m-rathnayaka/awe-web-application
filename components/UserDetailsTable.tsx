@@ -31,6 +31,7 @@ const UserDetailsTable = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState<string | undefined>(undefined);
+  const [projectList, setProjectList] = useState<any[]>([]);
 
   interface Project {
     name: string;
@@ -42,6 +43,23 @@ const UserDetailsTable = ({
     employer: string;
   }
 
+  // get all projectsdata and assign it to projectList
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const projectDetails = await Promise.all(
+        projects.map(async (projectId) => {
+          console.log(projectId._id)
+          const response = await fetch(`/api/tasks/${projectId._id}`);
+          return response.json();
+        })
+      );
+      setProjectList(projectDetails);
+    };
+
+    fetchProjects();
+  }, [projects]);
+
+  console.log(projectList)
   const handlePay = (project: Project) => {
     setProjectName(project.name);
     setOpen(true);
@@ -80,8 +98,7 @@ const UserDetailsTable = ({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {projects.map((project, index) => {
-                console.log(projects);
+              {projectList.map((project, index) => {
                 return (
                   <TableRow key={index}>
                     <TableCell>{project.name}</TableCell>

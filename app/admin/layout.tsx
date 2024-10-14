@@ -6,28 +6,27 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import {
-  Home,
-  PencilRuler,
-  Power,
-} from "lucide-react";
+import { Home, PencilRuler, Power } from "lucide-react";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     try {
-        await axios.get('/api/users/logout')
-        toast.success('Logout Success')
-        router.push('/login')
+      await axios.get("/api/users/logout");
+      toast.success("Logout Success");
+      router.push("/login");
     } catch (error: any) {
       console.log(error.message);
     }
   };
-  
+
   return (
     <div>
       <Toaster />
@@ -37,7 +36,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             href="/admin/home"
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
-                  <Home className="h-5 w-5" />
+            <Home className="h-5 w-5" />
             <span className="sr-only">AWE</span>
           </Link>
           <TooltipProvider>
@@ -72,7 +71,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </TooltipProvider>
         </nav>
       </aside>
-      {children}
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </div>
   );
 };

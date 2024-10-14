@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { MoreHorizontal, NotebookText } from "lucide-react";
 import {
