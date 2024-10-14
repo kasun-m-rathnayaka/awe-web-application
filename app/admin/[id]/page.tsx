@@ -32,7 +32,6 @@ const Page = ({ params }: { params: { id: string } }) => {
     try {
       const response = await axios.get(`/api/writer/${params.id}`);
       await setUser(response.data.user);
-      // setIsLoading(false);
     } catch (error: any) {
       console.log({ error: error });
     }

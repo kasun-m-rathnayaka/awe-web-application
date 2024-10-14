@@ -24,6 +24,9 @@ export default function LoginForm() {
     try {
       setLoading(true)
       const response = await axios.post('/api/users/login',user)
+      // read token to identify user role
+      const token = response.data.token
+      console.log(token)
       router.push('/admin/home')
       toast.success('Login Success')
     } catch (error:any) {

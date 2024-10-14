@@ -28,18 +28,21 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
     // create and assign tocken
     // create token data
     const tokenData = {
       id: user._id,
       username: user.firstname,
       email: user.email,
+      role: user.role,
     };
 
     // create token
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1h",
     });
+    
     const response = NextResponse.json({ token: token, success: true });
     response.cookies.set("token", token, { httpOnly: true });
     return response;

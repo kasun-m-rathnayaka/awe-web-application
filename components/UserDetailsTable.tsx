@@ -59,7 +59,6 @@ const UserDetailsTable = ({
     fetchProjects();
   }, [projects]);
 
-  console.log(projectList)
   const handlePay = (project: Project) => {
     setProjectName(project.name);
     setOpen(true);
@@ -136,9 +135,9 @@ const UserDetailsTable = ({
                           <DropdownMenuItem onClick={() => handlePay(project)}>
                             Pay
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={handleDelete}>
+                          {/* <DropdownMenuItem onClick={handleDelete}>
                             Delete
-                          </DropdownMenuItem>
+                          </DropdownMenuItem> */}
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
