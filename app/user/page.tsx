@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import {
   Card,
   CardContent,
@@ -9,8 +9,28 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import UserHeader from "@/components/UserHeader";
+import UserSideTable from "@/components/UserSideTable";
+import axios from "axios";
+import { useEffect } from "react";
+
 
 const Page = () => {
+  
+  // featch user info
+  const fratchUserInfo = async () => {
+    try {
+      const res = await axios.post("/api/users/verifyuser");
+      console.log(res.data);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fratchUserInfo();
+  }
+  , []);
+
   return (
     <div>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -27,12 +47,18 @@ const Page = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    {/* <UserTable
-                      titles={titles}
-                      data={tasks}
-                      handleDelete={handleDelete}
-                      handleClick={handleClick}
-                    /> */}
+                    <UserSideTable
+                      titles={[
+                        "Name",
+                        "Writer",
+                        "Description",
+                        "Deadline",
+                        "Payment",
+                        "Paid",
+                        "Status",
+                      ]}
+                      data={[]}
+                    />
                   </CardContent>
                   <CardFooter>
                     {/* <div className="text-xs text-muted-foreground">
@@ -47,7 +73,7 @@ const Page = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

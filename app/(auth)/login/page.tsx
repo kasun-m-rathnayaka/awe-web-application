@@ -20,27 +20,44 @@ export default function LoginForm() {
   const [user, setUser] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
 
-  const signUp = async() => {
+  const signUp = async () => {
     try {
-      setLoading(true)
-      const response = await axios.post('/api/users/login',user)
+      setLoading(true);
+      const response = await axios.post("/api/users/login", user);
       // read token to identify user role
-      const token = response.data.token
-      console.log(token)
-      const TokenData = await axios.post('/api/users/verifyuser',token)
-      console.log(TokenData)
-      // router.push('/admin/home')
-      toast.success('Login Success')
-    } catch (error:any) {
+      const token = response.data.token;
+      toast.success("Login Success");
+      verifyUser(token);
+    } catch (error: any) {
       console.log("error", error.response.data.message);
-      toast.error(error.response.data.message)
-      setLoading(false)
+      toast.error(error.response.data.message);
+      setLoading(false);
+    }
+  };
+
+  const verifyUser = async (token: any) => {
+    try {
+      const TokenData = await axios.post("/api/users/verifyuser", {token: token});
+      const role = TokenData.data.data.role
+      if (role === "admin") {
+        router.push('/admin/home')        
+      }
+      else if(role === "user") {
+        router.push('/user')
+      }
+      else {
+        toast.error("Invalid user role")
+      }
+    } catch (error: any) {
+      console.log("error", error.response.data.message);
     }
   };
 
   return (
     <div className="flex items-center h-screen">
-      <div><Toaster/></div>
+      <div>
+        <Toaster />
+      </div>
       <Card className="max-w-sm m-auto">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
@@ -79,7 +96,7 @@ export default function LoginForm() {
               />
             </div>
             <Button type="submit" className="w-full mt-5" onClick={signUp}>
-              {loading ? 'Loading' : 'Login'}
+              {loading ? "Loading" : "Login"}
             </Button>
             {/* <Button variant="outline" className="w-full">
               Login with Google
