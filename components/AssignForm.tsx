@@ -73,7 +73,7 @@ const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
       </div>
       <Card className="mx-auto max-w-sm ">
         <CardHeader>
-          <CardTitle className="text-xl">Assign a new Task</CardTitle>
+          <CardTitle className="text-xl">Edit Task</CardTitle>
           <CardDescription>
             Assign new jobs and Tasks to writers
           </CardDescription>

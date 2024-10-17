@@ -24,14 +24,15 @@ interface AddFormProps {
 const VerifyForm: React.FC<AddFormProps> = ({ setOpen,userId }) => {
   const [loading, setLoading] = useState(false);
   const [task, setTask] = useState({
+    userId: userId,
     ammount: "",
   });
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const response = await axios.patch(`/api/writer/${userId}`, task);
-      toast.success("Payment Successful");
+      const response = await axios.patch(`/api/users/verifyuser/`, task);
+      toast.success("Verify Successful");
       setLoading(false)
     } catch (error:any) {
       console.log("error", error.response);
@@ -47,24 +48,24 @@ const VerifyForm: React.FC<AddFormProps> = ({ setOpen,userId }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="z-10 absolute top-[299px] right-[53px] flex items-center">
+      <div className="z-10 fixed top-[105px] right-[24px] flex items-center">
         <div>
           <Toaster />
         </div>
         <Card className="mx-auto max-w-sm cursor-pointer">
         <CircleX className="mt-2 ml-2" onClick={()=>setOpen(false)} />
           <CardHeader>
-            <CardTitle className="text-xl">Confirm your payment</CardTitle>
-            <CardDescription>Enter Payment details</CardDescription>
+            <CardTitle className="text-xl">Set a DEMO Number</CardTitle>
+            <CardDescription>Enter a unique number</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <div className="grid gap-2">
-                  <Label htmlFor="id">Ammount</Label>
+                  <Label htmlFor="id">DEMO number</Label>
                   <Input
                     id="id"
-                    placeholder="1000"
+                    placeholder="DEMO101"
                     onChange={(e) =>
                       setTask({ ...task, ammount: e.target.value })
                     }
@@ -73,7 +74,7 @@ const VerifyForm: React.FC<AddFormProps> = ({ setOpen,userId }) => {
                 </div>
               </div>
               <Button type="submit" className="w-full" onClick={handleSubmit}>
-              {loading ? "Processing ..." : "Complete Payment"}
+              {loading ? "Processing ..." : "Verify User"}
             </Button>
             </div>
           </CardContent>

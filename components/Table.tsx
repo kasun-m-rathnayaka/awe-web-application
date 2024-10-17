@@ -88,7 +88,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem onClick={(e) => handleAssign(item._id)}>Assign</DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => handleAssign(item._id)}>Edit</DropdownMenuItem>
                     <DropdownMenuItem onClick={(e) => handleDelete(item._id)}>
                       Delete
                     </DropdownMenuItem>
