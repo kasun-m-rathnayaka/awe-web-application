@@ -38,7 +38,7 @@ export async function PATCH(request: NextRequest) {
     const { userId,ammount } = await request.json();
     // check if the userid is exist
     const userIdExist = await User.findOne({ firstname: userId });
-    if (!userIdExist) {
+    if (userIdExist) {
       return NextResponse.json(
         { message: "Demo Id is already assigned" },
         { status: 404 }

@@ -55,9 +55,11 @@ export const PATCH = async (request: Request, { params }: { params: any }) => {
     const task = await request.json();
     const featchTask = await Task.findOne({ name: task.id });
     const { _id, payment, paid } = featchTask;
-    const newpaidammount = parseInt(paid) + parseInt(task.ammount);
-    
-    // this feature needs to be implemented 
+
+    const newpaidammount: number =
+      paid == null ? 0 : parseInt(paid) + parseInt(task.ammount);
+
+    // this feature needs to be implemented
     if (parseInt(payment) < newpaidammount) {
       return NextResponse.json(
         {
@@ -73,6 +75,7 @@ export const PATCH = async (request: Request, { params }: { params: any }) => {
       { paid: newpaidammount },
       { new: true }
     );
+
     if (updateTask) {
       return NextResponse.json("task updated successfully", { status: 200 });
     }

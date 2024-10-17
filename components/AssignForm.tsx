@@ -34,10 +34,10 @@ const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
   const [checking, setChecking] = useState(false);
   const [task, setTask] = useState({
     writer: "",
-    description: "",
+    description: "New Task",
     deadline: "",
     payment: "",
-    status: "",
+    status: "In Progress",
   });
   const handleCheck = async (value: string) => {
     try {

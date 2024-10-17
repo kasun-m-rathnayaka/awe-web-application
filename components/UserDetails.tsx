@@ -1,3 +1,4 @@
+'use client'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, Mail, CheckCircle, XCircle } from "lucide-react";
 import { IdCardIcon } from "@radix-ui/react-icons";
@@ -5,6 +6,7 @@ import UserDetailsTable from "./UserDetailsTable";
 
 interface UserDetailsProps {
   user: {
+    _id: string;
     image: string;
     firstname: string;
     lastname: string;
@@ -55,7 +57,7 @@ export default function UserDetails({ user }: UserDetailsProps) {
           </div>
         </CardContent>
       </Card>
-      <UserDetailsTable projects={user.projects} userId={user.firstname} />
+      <UserDetailsTable projects={user.projects} userId={user._id} />
     </div>
   );
 }

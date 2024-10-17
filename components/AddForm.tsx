@@ -32,13 +32,13 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
   const [checking, setChecking] = useState(false);
   const [task, setTask] = useState({
     name: "",
-    writer: "",
-    description: "",
+    writer: "Not yet assigned",
+    description: "New Task",
     deadline: "",
-    payment: "",
-    paid: "",
-    status: "",
-    employer: "",
+    payment: '0',
+    paid: "0",
+    status: "In Progress",
+    employer: "Annoymous",
   });
 
   const handleSubmit = async () => {
