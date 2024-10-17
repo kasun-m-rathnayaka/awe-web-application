@@ -21,6 +21,7 @@ import { Button } from "./ui/button";
 import { MoreHorizontal } from "lucide-react";
 import PayForm from "./PayForm";
 import axios from "axios";
+import moment from "moment";
 
 const UserDetailsTable = ({
   projects,
@@ -102,7 +103,7 @@ const UserDetailsTable = ({
                   <TableRow key={index}>
                     <TableCell>{project.name}</TableCell>
                     <TableCell>{project.description}</TableCell>
-                    <TableCell>{new Date(project.deadline).toDateString()}</TableCell>
+                    <TableCell>{moment(project.deadline).fromNow()}</TableCell>
                     <TableCell>Rs.{project.payment.toFixed(2)}</TableCell>
                     <TableCell>Rs.{project.paid && project.paid.toFixed(2)}</TableCell>
                     <TableCell>

@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
+import moment from "moment";
 
 interface TableComponentProps {
   titles: string[];
@@ -64,7 +65,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
               <TableCell>{item.writer}</TableCell>
               <TableCell>{item.description}</TableCell>
               <TableCell className="hidden md:table-cell">
-                {new Date(item.deadline).toDateString()}
+                {moment(item.deadline).fromNow()}
               </TableCell>
               <TableCell className="hidden md:table-cell">
                 {item.payment}

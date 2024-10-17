@@ -22,7 +22,7 @@ export default function UserDetails({ user }: UserDetailsProps) {
     <div className="container mx-auto p-4 space-y-6">
       <Card className="overflow-hidden">
         <CardHeader className="bg-gray-100">
-          <CardTitle className="text-2xl capitalize text-center">{`${user.firstname} ${user.lastname}`}</CardTitle>
+          <CardTitle className="text-2xl capitalize text-center">{`${user.firstname} - ${user.lastname}`}</CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
