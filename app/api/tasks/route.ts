@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
       status,
       employer,
     } = reqBody;
+    console.log(reqBody);
 
     // check whether all data available
     if (!name || !description || !deadline || !payment || !status) {
@@ -31,6 +32,17 @@ export async function POST(request: NextRequest) {
       if (job) {
         return NextResponse.json(
           { message: "Job already exists", success: false },
+          { status: 400 }
+        );
+      }
+    });
+
+    // check whether task already exists
+    await Task.findOne({ name: name }).then((task) => {
+      console.log(task);
+      if (task) {
+        return NextResponse.json(
+          { message: "Task already exists", success: false },
           { status: 400 }
         );
       }
@@ -68,5 +80,3 @@ export const GET = async () => {
     });
   }
 };
-
-

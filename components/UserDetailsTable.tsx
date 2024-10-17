@@ -22,6 +22,7 @@ import { MoreHorizontal } from "lucide-react";
 import PayForm from "./PayForm";
 import axios from "axios";
 import moment from "moment";
+import toast, { Toaster } from "react-hot-toast";
 
 const UserDetailsTable = ({
   projects,
@@ -35,6 +36,7 @@ const UserDetailsTable = ({
   const [projectList, setProjectList] = useState<any[]>([]);
 
   interface Project {
+    _id: string;
     name: string;
     description: string;
     deadline: string;
@@ -49,7 +51,6 @@ const UserDetailsTable = ({
     const fetchProjects = async () => {
       const projectDetails = await Promise.all(
         projects.map(async (projectId) => {
-          console.log(projectId._id)
           const response = await fetch(`/api/tasks/${projectId._id}`);
           return response.json();
         })
@@ -65,18 +66,20 @@ const UserDetailsTable = ({
     setOpen(true);
   };
 
-  const handleDelete = () => {
+  const handleDelete = (projectId:string) => {
     try {
-      axios.delete(`/api/tasks/${userId}`).then((res) => {
-        console.log(res);
+      axios.delete(`/api/tasks/${userId}+${projectId}`).then((res) => {
+        toast.success("Task removed successfully");
       });
     } catch (error: any) {
       console.log("error", error.response);
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <div>
+      <Toaster/>
       <Card>
         <CardHeader>
           <CardTitle>Ongoing Projects</CardTitle>
@@ -136,9 +139,9 @@ const UserDetailsTable = ({
                           <DropdownMenuItem onClick={() => handlePay(project)}>
                             Pay
                           </DropdownMenuItem>
-                          {/* <DropdownMenuItem onClick={handleDelete}>
-                            Delete
-                          </DropdownMenuItem> */}
+                          <DropdownMenuItem onClick={()=>handleDelete(project._id)}>
+                            Remove
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>

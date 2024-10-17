@@ -33,9 +33,9 @@ const AddWriter: React.FC<AddFormProps> = ({ setOpen }) => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/tasks", user);
-      console.log("Task added successfully", response.data);
-      toast.success("Task added successfully");
+      const response = await axios.post("/api/users/signup", user);
+      // console.log("User added successfully", response.data);
+      toast.success("User added successfully");
       setLoading(false)
     } catch (error:any) {
       console.log("error", error.response);

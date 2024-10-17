@@ -73,7 +73,7 @@ const Page = () => {
 
   const handleDelete = async (id: any) => {
     try {
-      const response = await axios.delete(`/api/tasks/${id}`).then((res) => {
+      const response = await axios.delete(`/api/job/${id}`).then((res) => {
         fetchData();
         toast.success("Task Deleted Successfully");
       });

@@ -49,3 +49,18 @@ export const PATCH = async (request: Request, { params }: { params: any }) => {
     return new NextResponse("Error updating task: " + error, { status: 500 });
   }
 };
+
+export const DELETE = async (request: Request, { params }: { params: any }) => {
+  try {
+    const _id = params.id;
+    const task = await Task.findByIdAndDelete(_id);
+    if (!task) {
+      return new NextResponse("Task not found", { status: 404 });
+    }   
+
+    return new NextResponse("Task removed successfully", { status: 200 });
+
+  } catch (error) {
+    return new NextResponse("Error deleting user: " + error, { status: 500 });
+  }
+};
