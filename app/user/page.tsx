@@ -11,23 +11,31 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import UserHeader from "@/components/UserHeader";
 import UserSideTable from "@/components/UserSideTable";
 import axios from "axios";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 
 const Page = () => {
+  const [projectList, setProjectList] = useState<any[]>([]);
   
   // featch user info
-  const fratchUserInfo = async () => {
+  const fatchUserInfo = async () => {
     try {
-      const res = await axios.post("/api/users/verifyuser");
-      console.log(res.data);
+      const response = await axios.get(`/api/users/user`);
+      const projects = response.data.data.projects;
+      if (projects.length > 0) {
+        projects.map((project: any) => {
+          const projects = axios.get(`/api/tasks/${project._id}`).then((res) => {
+            setProjectList([...projectList, res.data]);
+          });
+        });        
+      }    
+      console.log(projectList)
     } catch (error: any) {
       console.log(error.message);
     }
   };
 
   useEffect(() => {
-    fratchUserInfo();
+    fatchUserInfo();
   }
   , []);
 
@@ -57,7 +65,7 @@ const Page = () => {
                         "Paid",
                         "Status",
                       ]}
-                      data={[]}
+                      data={projectList}
                     />
                   </CardContent>
                   <CardFooter>

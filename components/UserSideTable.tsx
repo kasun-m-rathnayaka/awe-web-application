@@ -68,9 +68,6 @@ const UserSideTable: React.FC<UserSideTableProps> = ({ titles, data }) => {
               <TableCell className="hidden md:table-cell">
                 <Badge variant={"outline"}>{item.status}</Badge>
               </TableCell>
-              <TableCell className="hidden md:table-cell">
-                {item.employer}
-              </TableCell>
               <TableCell>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
