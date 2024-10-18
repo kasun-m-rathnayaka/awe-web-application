@@ -1,4 +1,5 @@
-'use client'
+"use client";
+import TopInfoCardList from "@/components/TopInfoCardList";
 import {
   Card,
   CardContent,
@@ -15,7 +16,7 @@ import { useEffect, useState } from "react";
 
 const Page = () => {
   const [projectList, setProjectList] = useState<any[]>([]);
-  
+
   // featch user info
   const fatchUserInfo = async () => {
     try {
@@ -23,12 +24,14 @@ const Page = () => {
       const projects = response.data.data.projects;
       if (projects.length > 0) {
         projects.map((project: any) => {
-          const projects = axios.get(`/api/tasks/${project._id}`).then((res) => {
-            setProjectList([...projectList, res.data]);
-          });
-        });        
-      }    
-      console.log(projectList)
+          const projects = axios
+            .get(`/api/tasks/${project._id}`)
+            .then((res) => {
+              setProjectList([...projectList, res.data]);
+            });
+        });
+      }
+      console.log(projectList);
     } catch (error: any) {
       console.log(error.message);
     }
@@ -36,8 +39,7 @@ const Page = () => {
 
   useEffect(() => {
     fatchUserInfo();
-  }
-  , []);
+  }, []);
 
   return (
     <div>
@@ -45,6 +47,7 @@ const Page = () => {
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <UserHeader />
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+            <TopInfoCardList/>
             <Tabs defaultValue="all">
               <TabsContent value="all">
                 <Card x-chunk="dashboard-06-chunk-0">

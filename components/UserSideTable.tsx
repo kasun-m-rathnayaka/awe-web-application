@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
+import moment from "moment";
 
 interface UserSideTableProps {
   titles: String[];
@@ -57,7 +58,7 @@ const UserSideTable: React.FC<UserSideTableProps> = ({ titles, data }) => {
               <TableCell>{item.writer}</TableCell>
               <TableCell>{item.description}</TableCell>
               <TableCell className="hidden md:table-cell">
-                {new Date(item.deadline).toDateString()}
+                {moment(item.deadline).fromNow()}
               </TableCell>
               <TableCell className="hidden md:table-cell">
                 {item.payment}
