@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 
 const Page = () => {
   const [projectList, setProjectList] = useState<any[]>([]);
+  const [user, setUser] = useState<any>();
 
   // featch user info
   const fatchUserInfo = async () => {
@@ -31,7 +32,6 @@ const Page = () => {
             });
         });
       }
-      console.log(projectList);
     } catch (error: any) {
       console.log(error.message);
     }
@@ -47,12 +47,12 @@ const Page = () => {
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <UserHeader />
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-            <TopInfoCardList/>
+            <TopInfoCardList setUser={setUser}/>
             <Tabs defaultValue="all">
               <TabsContent value="all">
                 <Card x-chunk="dashboard-06-chunk-0">
                   <CardHeader>
-                    <CardTitle>Welcome Writer</CardTitle>
+                    <CardTitle className=" capitalize">Welcome {user ? user.lastname : 'writer'}</CardTitle>
                     <CardDescription>
                       Manage your current assignment and their tasks
                     </CardDescription>
