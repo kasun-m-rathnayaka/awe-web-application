@@ -102,6 +102,7 @@ const UserDetailsTable = ({
             </TableHeader>
             <TableBody>
               {projectList.map((project, index) => {
+                if (project == null) return null;
                 return (
                   <TableRow key={index}>
                     <TableCell>{project.name}</TableCell>

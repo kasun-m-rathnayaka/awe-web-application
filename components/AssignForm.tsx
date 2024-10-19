@@ -100,7 +100,7 @@ const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
                 </Label>
                 <Input
                   id="writer"
-                  placeholder="Demo1001"
+                  placeholder="DEMO1001"
                   onChange={(e) => {
                     setTask({ ...task, writer: e.target.value });
                     setChecking(true);
