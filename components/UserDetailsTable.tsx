@@ -24,49 +24,35 @@ import axios from "axios";
 import moment from "moment";
 import toast, { Toaster } from "react-hot-toast";
 
+interface Project {
+  _id: string;
+  deadline: string;
+  description: string;
+  employer: string;
+  name: string;
+  paid: number;
+  payment: number;
+  status: string;
+  writer: string;
+  __v: number;
+}
+
 const UserDetailsTable = ({
-  projects,
   userId,
+  projectlist,
 }: {
-  projects: any[];
   userId: string;
+  projectlist: Project[];
 }) => {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState<string | undefined>(undefined);
-  const [projectList, setProjectList] = useState<any[]>([]);
-
-  interface Project {
-    _id: string;
-    name: string;
-    description: string;
-    deadline: string;
-    payment: number;
-    paid: number;
-    status: string;
-    employer: string;
-  }
-
-  // get all projectsdata and assign it to projectList
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const projectDetails = await Promise.all(
-        projects.map(async (projectId) => {
-          const response = await fetch(`/api/tasks/${projectId._id}`);
-          return response.json();
-        })
-      );
-      setProjectList(projectDetails);
-    };
-
-    fetchProjects();
-  }, [projects]);
 
   const handlePay = (project: Project) => {
     setProjectName(project.name);
     setOpen(true);
   };
 
-  const handleDelete = (projectId:string) => {
+  const handleDelete = (projectId: string) => {
     try {
       axios.delete(`/api/tasks/${userId}+${projectId}`).then((res) => {
         toast.success("Task removed successfully");
@@ -79,7 +65,7 @@ const UserDetailsTable = ({
 
   return (
     <div>
-      <Toaster/>
+      <Toaster />
       <Card>
         <CardHeader>
           <CardTitle>Ongoing Projects</CardTitle>
@@ -101,7 +87,7 @@ const UserDetailsTable = ({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {projectList.map((project, index) => {
+              {projectlist.map((project, index) => {
                 if (project == null) return null;
                 return (
                   <TableRow key={index}>
@@ -109,7 +95,9 @@ const UserDetailsTable = ({
                     <TableCell>{project.description}</TableCell>
                     <TableCell>{moment(project.deadline).fromNow()}</TableCell>
                     <TableCell>Rs.{project.payment.toFixed(2)}</TableCell>
-                    <TableCell>Rs.{project.paid && project.paid.toFixed(2)}</TableCell>
+                    <TableCell>
+                      Rs.{project.paid && project.paid.toFixed(2)}
+                    </TableCell>
                     <TableCell>
                       <Badge
                         variant="outline"
@@ -140,7 +128,9 @@ const UserDetailsTable = ({
                           <DropdownMenuItem onClick={() => handlePay(project)}>
                             Pay
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={()=>handleDelete(project._id)}>
+                          <DropdownMenuItem
+                            onClick={() => handleDelete(project._id)}
+                          >
                             Remove
                           </DropdownMenuItem>
                         </DropdownMenuContent>

@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
     const cookieStore = cookies()
     const token = cookieStore.get('token')?.value
     
-    console.log(token);
     if (!token) {
       return NextResponse.json(
         { message: "Token is required" },

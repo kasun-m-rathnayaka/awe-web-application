@@ -4,6 +4,19 @@ import { Phone, Mail, CheckCircle, XCircle } from "lucide-react";
 import { IdCardIcon } from "@radix-ui/react-icons";
 import UserDetailsTable from "./UserDetailsTable";
 
+interface Project {
+  _id: string;
+  deadline: string;
+  description: string;
+  employer: string;
+  name: string;
+  paid: number;
+  payment: number;
+  status: string;
+  writer: string;
+  __v: number;
+}
+
 interface UserDetailsProps {
   user: {
     _id: string;
@@ -15,11 +28,12 @@ interface UserDetailsProps {
     email: string;
     isVerified: boolean;
     role: string;
-    projects: any[];
+    projects: Project[];
   };
+  projects: Project[];
 }
 
-export default function UserDetails({ user }: UserDetailsProps) {
+export default function UserDetails({ user, projects }: UserDetailsProps) {
   return (
     <div className="container mx-auto p-4 space-y-6">
       <Card className="overflow-hidden">
@@ -57,7 +71,7 @@ export default function UserDetails({ user }: UserDetailsProps) {
           </div>
         </CardContent>
       </Card>
-      <UserDetailsTable projects={user.projects} userId={user._id} />
+      <UserDetailsTable userId={user._id} projectlist={projects}/>
     </div>
   );
 }
