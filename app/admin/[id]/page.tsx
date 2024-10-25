@@ -36,7 +36,6 @@ const Page = ({ params }: { params: { id: string } }) => {
       );
   
       setProjectList(projectDetails);
-      console.log({ user, projectDetails });
     } catch (error) {
       console.error('Error fetching user or project details:', error);
     }

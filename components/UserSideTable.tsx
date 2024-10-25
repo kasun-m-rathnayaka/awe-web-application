@@ -49,7 +49,9 @@ const UserSideTable: React.FC<UserSideTableProps> = ({ titles, data }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((item, i) => (
+          {data.map((item, i) => {
+            if (item == null) return null;
+            return
             <TableRow key={item._id}>
               <TableCell className="hidden sm:table-cell">
                 <NotebookText />
@@ -85,8 +87,8 @@ const UserSideTable: React.FC<UserSideTableProps> = ({ titles, data }) => {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>
-            </TableRow>
-          ))}
+            </TableRow>;
+          })}
         </TableBody>
       </Table>
     </div>

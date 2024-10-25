@@ -59,68 +59,71 @@ const UserTable: React.FC<TableComponentProps> = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((item) => (
-            <TableRow key={item._id}>
-              {open && <VerifyForm setOpen={setOpen} userId={userId} />}
-              <TableCell
-                className="hidden sm:table-cell cursor-pointer"
-                onClick={() => handleClick(item._id)}
-              >
-                <NotebookText />
-              </TableCell>
-              <TableCell
-                onClick={() => handleClick(item._id)}
-                className="font-normal cursor-pointer"
-              >
-                {item.firstname}
-              </TableCell>
-              <TableCell
-                onClick={() => handleClick(item._id)}
-                className=" cursor-pointer"
-              >
-                {item.lastname}
-              </TableCell>
-              <TableCell>{item.nationalid}</TableCell>
-              <TableCell className="hidden md:table-cell">
-                {item.whatsappnumber}
-              </TableCell>
-              <TableCell className="hidden md:table-cell">
-                {item.email}
-              </TableCell>
-              <TableCell className="hidden md:table-cell">
-                <Badge variant={"outline"}>
-                  {item.verifyed ? "Verified" : "Not Verified"}
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">
-                <Badge variant={"outline"}>{item.role}</Badge>
-              </TableCell>
-              <TableCell>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button aria-haspopup="true" size="icon" variant="ghost">
-                      <MoreHorizontal className="h-4 w-4" />
-                      <span className="sr-only">Toggle menu</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        setOpen(true);
-                        setUserId(item._id);
-                      }}
-                    >
-                      Verify
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={(e) => handleDelete(item._id)}>
-                      Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
-          ))}
+          {data.map((item) => {
+            if (item == null) return null;
+            return (
+              <TableRow key={item._id}>
+                {open && <VerifyForm setOpen={setOpen} userId={userId} />}
+                <TableCell
+                  className="hidden sm:table-cell cursor-pointer"
+                  onClick={() => handleClick(item._id)}
+                >
+                  <NotebookText />
+                </TableCell>
+                <TableCell
+                  onClick={() => handleClick(item._id)}
+                  className="font-normal cursor-pointer"
+                >
+                  {item.firstname}
+                </TableCell>
+                <TableCell
+                  onClick={() => handleClick(item._id)}
+                  className=" cursor-pointer"
+                >
+                  {item.lastname}
+                </TableCell>
+                <TableCell>{item.nationalid}</TableCell>
+                <TableCell className="hidden md:table-cell">
+                  {item.whatsappnumber}
+                </TableCell>
+                <TableCell className="hidden md:table-cell">
+                  {item.email}
+                </TableCell>
+                <TableCell className="hidden md:table-cell">
+                  <Badge variant={"outline"}>
+                    {item.verifyed ? "Verified" : "Not Verified"}
+                  </Badge>
+                </TableCell>
+                <TableCell className="hidden md:table-cell">
+                  <Badge variant={"outline"}>{item.role}</Badge>
+                </TableCell>
+                <TableCell>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button aria-haspopup="true" size="icon" variant="ghost">
+                        <MoreHorizontal className="h-4 w-4" />
+                        <span className="sr-only">Toggle menu</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setOpen(true);
+                          setUserId(item._id);
+                        }}
+                      >
+                        Verify
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={(e) => handleDelete(item._id)}>
+                        Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>

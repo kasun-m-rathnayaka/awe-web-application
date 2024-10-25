@@ -36,10 +36,7 @@ interface TableComponentProps {
   handleClick: (id: any) => void;
 }
 
-const WriterInfoTable: React.FC<TableComponentProps> = ({
-  titles,
-  data,
-}) => {
+const WriterInfoTable: React.FC<TableComponentProps> = ({ titles, data }) => {
   const [open, setOpen] = React.useState(false);
   return (
     <div>
@@ -55,46 +52,47 @@ const WriterInfoTable: React.FC<TableComponentProps> = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((item) => (
-            <TableRow
-              key={item._id}
-            >
-              {open && <VerifyForm setOpen={setOpen} userId={item._id} />}
-              <TableCell className="hidden sm:table-cell">
-                <NotebookText />
-              </TableCell>
-              <TableCell className="font-medium">{item.firstname}</TableCell>
-              <TableCell>{item.lastname}</TableCell>
-              <TableCell>{item.nationalid}</TableCell>
-              <TableCell className="hidden md:table-cell">
-                {item.whatsappnumber}
-              </TableCell>
-              <TableCell className="hidden md:table-cell">
-                {item.email}
-              </TableCell>
-              <TableCell className="hidden md:table-cell">
-                <Badge variant={"outline"}>
-                  {item.verifyed ? "Verified" : "Not Verified"}
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">
-                <Badge variant={"outline"}>{item.role}</Badge>
-              </TableCell>
-              <TableCell>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button aria-haspopup="true" size="icon" variant="ghost">
-                      <MoreHorizontal className="h-4 w-4" />
-                      <span className="sr-only">Toggle menu</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  {/* <DropdownMenuContent align="end">
+          {data.map((item) => {
+            if (item == null) return null;
+            return (
+              <TableRow key={item._id}>
+                {open && <VerifyForm setOpen={setOpen} userId={item._id} />}
+                <TableCell className="hidden sm:table-cell">
+                  <NotebookText />
+                </TableCell>
+                <TableCell className="font-medium">{item.firstname}</TableCell>
+                <TableCell>{item.lastname}</TableCell>
+                <TableCell>{item.nationalid}</TableCell>
+                <TableCell className="hidden md:table-cell">
+                  {item.whatsappnumber}
+                </TableCell>
+                <TableCell className="hidden md:table-cell">
+                  {item.email}
+                </TableCell>
+                <TableCell className="hidden md:table-cell">
+                  <Badge variant={"outline"}>
+                    {item.verifyed ? "Verified" : "Not Verified"}
+                  </Badge>
+                </TableCell>
+                <TableCell className="hidden md:table-cell">
+                  <Badge variant={"outline"}>{item.role}</Badge>
+                </TableCell>
+                <TableCell>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button aria-haspopup="true" size="icon" variant="ghost">
+                        <MoreHorizontal className="h-4 w-4" />
+                        <span className="sr-only">Toggle menu</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    {/* <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   </DropdownMenuContent> */}
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
-          ))}
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>
