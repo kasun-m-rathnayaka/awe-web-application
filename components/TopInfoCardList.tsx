@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import axios from "axios";
-import { set } from "mongoose";
 
 interface TopInfoCardListProps {
   setUser: any;

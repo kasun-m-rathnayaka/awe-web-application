@@ -24,13 +24,14 @@ const Page = () => {
       const response = await axios.get(`/api/users/user`);
       const projects = response.data.data.projects;
       if (projects.length > 0) {
-        projects.map((project: any) => {
-          const projects = axios
-            .get(`/api/tasks/${project._id}`)
-            .then((res) => {
-              setProjectList([...projectList, res.data]);
-            });
-        });
+        const projectDetails = await Promise.all(
+          projects.map(async (project:any) => {
+            const response = await fetch(`/api/tasks/${project._id}`);
+            return response.json();
+          })
+        );
+    
+        setProjectList(projectDetails);
       }
     } catch (error: any) {
       console.log(error.message);
@@ -47,12 +48,14 @@ const Page = () => {
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <UserHeader />
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-            <TopInfoCardList setUser={setUser}/>
+            <TopInfoCardList setUser={setUser} />
             <Tabs defaultValue="all">
               <TabsContent value="all">
                 <Card x-chunk="dashboard-06-chunk-0">
                   <CardHeader>
-                    <CardTitle className=" capitalize">Welcome {user ? user.lastname : 'writer'}</CardTitle>
+                    <CardTitle className=" capitalize">
+                      Welcome {user ? user.lastname : "writer"}
+                    </CardTitle>
                     <CardDescription>
                       Manage your current assignment and their tasks
                     </CardDescription>
