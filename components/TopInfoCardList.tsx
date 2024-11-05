@@ -34,25 +34,25 @@ const TopInfoCardList: React.FC<TopInfoCardListProps> = ({ setUser }) => {
   return (
     <div className="flex justify-center gap-10">
       <Card className="w-[350px]">
-        <CardHeader>
+        <CardHeader className="bg-green-100">
           <CardTitle>Remaining Tasks</CardTitle>
-          <CardDescription className="text-center pt-2 text-5xl">
+          <CardDescription className="text-center pt-2 text-5xl text-green-500">
             {data?.remainingtasks || 0}
           </CardDescription>
         </CardHeader>
       </Card>
       <Card className="w-[350px]">
-        <CardHeader>
+        <CardHeader className="bg-red-100">
           <CardTitle>Late Tasks</CardTitle>
-          <CardDescription className="text-center pt-2 text-5xl">
+          <CardDescription className="text-center pt-2 text-5xl text-red-500">
             {data?.latetasks || 0}
           </CardDescription>
         </CardHeader>
       </Card>
       <Card className="w-[350px]">
-        <CardHeader>
+        <CardHeader className="bg-blue-100">
           <CardTitle>Completed Tasks</CardTitle>
-          <CardDescription className="text-center pt-2 text-5xl">
+          <CardDescription className="text-center pt-2 text-5xl text-blue-500">
             {data?.completedtasks || 0}
           </CardDescription>
         </CardHeader>

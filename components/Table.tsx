@@ -66,7 +66,11 @@ const TableComponent: React.FC<TableComponentProps> = ({
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell>{item.writer}</TableCell>
                 <TableCell>{item.description}</TableCell>
-                <TableCell className="hidden md:table-cell">
+                <TableCell className={`hidden md:table-cell ${
+                    item.deadline < moment().format("MMMM Do YYYY, h:mm:ss a")
+                      ? "bg-red-100 text-red-800"
+                      : "bg-green-100 text-green-800"
+                  }`}>
                   {moment(item.deadline).fromNow()}
                 </TableCell>
                 <TableCell className="hidden md:table-cell">

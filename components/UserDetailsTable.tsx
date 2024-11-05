@@ -93,7 +93,16 @@ const UserDetailsTable = ({
                   <TableRow key={index}>
                     <TableCell>{project.name}</TableCell>
                     <TableCell>{project.description}</TableCell>
-                    <TableCell>{moment(project.deadline).fromNow()}</TableCell>
+                    <TableCell
+                      className={`hidden md:table-cell ${
+                        project.deadline <
+                        moment().format("MMMM Do YYYY, h:mm:ss a")
+                          ? "bg-red-100 text-red-800"
+                          : "bg-green-100 text-green-800"
+                      }`}
+                    >
+                      {moment(project.deadline).fromNow()}
+                    </TableCell>
                     <TableCell>Rs.{project.payment.toFixed(2)}</TableCell>
                     <TableCell>
                       Rs.{project.paid && project.paid.toFixed(2)}

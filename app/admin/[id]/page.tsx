@@ -15,7 +15,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     nationalid: "",
     whatsappnumber: "",
     email: "",
-    isVerified: false,
+    verifyed: false,
     role: "",
     projects: []
   });

@@ -26,7 +26,7 @@ interface UserDetailsProps {
     nationalid: string;
     whatsappnumber: string;
     email: string;
-    isVerified: boolean;
+    verifyed: boolean;
     role: string;
     projects: Project[];
   };
@@ -34,6 +34,7 @@ interface UserDetailsProps {
 }
 
 export default function UserDetails({ user, projects }: UserDetailsProps) {
+  console.log(user)
   return (
     <div className="container mx-auto p-4 space-y-6">
       <Card className="overflow-hidden">
@@ -58,13 +59,13 @@ export default function UserDetails({ user, projects }: UserDetailsProps) {
                 <span>Email : {user.email}</span>
               </div>
               <div className="flex items-center space-x-3">
-                {user.isVerified ? (
+                {user.verifyed ? (
                   <CheckCircle className="w-5 h-5 text-gray-500" />
                 ) : (
                   <XCircle className="w-5 h-5 text-gray-500" />
                 )}
                 <span>
-                  Status : {user.isVerified ? "Verified" : "Not Verified"}
+                  Status : {user.verifyed ? "Verified" : "Not Verified"}
                 </span>
               </div>
             </div>
