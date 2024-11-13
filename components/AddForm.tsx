@@ -91,7 +91,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
             <div className="grid gap-4">
               <div className="grid gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="first-name">Name</Label>
+                  <Label htmlFor="first-name">Name <span className="text-red-400">*</span></Label>
                   <Input
                     id="name"
                     placeholder="AWE1001"
@@ -142,7 +142,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="grid gap-2">
-                  <Label htmlFor="phone-number">Deadline</Label>
+                  <Label htmlFor="phone-number">Deadline <span className="text-red-400">*</span></Label>
                   <Input
                     type="date"
                     id="phone-number"
@@ -155,7 +155,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="first-name">Payment</Label>
+                  <Label htmlFor="first-name">Payment <span className="text-red-400">*</span></Label>
                   <Input
                     id="first-name"
                     type="number"

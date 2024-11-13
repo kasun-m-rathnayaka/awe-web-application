@@ -34,7 +34,7 @@ interface TableComponentProps {
   }[];
   handleDelete: (id: any) => void;
   handleAssign: (id: any) => void;
-  handleEdit: (id:any) => void;
+  handleEdit: (id:any, name:string) => void;
 }
 
 const TableComponent: React.FC<TableComponentProps> = ({
@@ -101,7 +101,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                       <DropdownMenuItem onClick={(e) => handleAssign(item._id)}>
                         Assign
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={(e) => handleEdit(item._id)}>
+                      <DropdownMenuItem onClick={(e) => handleEdit(item._id, item.name)}>
                         Edit
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={(e) => handleDelete(item._id)}>

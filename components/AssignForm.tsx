@@ -83,7 +83,7 @@ const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
             <div className="grid grid-cols-1 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="last-name">
-                  Writer
+                  Writer <span className="text-red-400">*</span>
                   {task.writer.length > 3 ? (
                     checking == true ? (
                       <span className="pl-5 text-red-400 text-sm">
@@ -123,7 +123,9 @@ const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div className="grid gap-2">
-                <Label htmlFor="phone-number">Deadline</Label>
+                <Label htmlFor="phone-number">
+                  Deadline <span className="text-red-400">*</span>
+                </Label>
                 <Input
                   type="date"
                   id="phone-number"
@@ -134,7 +136,9 @@ const AssignForm = ({ setOpenAssign, id }: AddFormProps) => {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="first-name">Payment</Label>
+                <Label htmlFor="first-name">
+                  Payment <span className="text-red-400">*</span>
+                </Label>
                 <Input
                   id="first-name"
                   type="number"

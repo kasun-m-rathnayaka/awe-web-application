@@ -25,13 +25,14 @@ import toast, { Toaster } from "react-hot-toast";
 interface AddFormProps {
   setOpenAssign: (open: boolean) => void;
   id: any;
+  name: string;
 }
 
-const EditForm = ({ setOpenAssign, id }: AddFormProps) => {
+const EditForm = ({ setOpenAssign, id, name }: AddFormProps) => {
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(false);
   const [task, setTask] = useState({
-    name: "",
+    name: name,
     description: "New Task",
     deadline: "",
     payment: "",
@@ -42,7 +43,7 @@ const EditForm = ({ setOpenAssign, id }: AddFormProps) => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const response = await axios.patch(`/api/job/${id}`, task);
+      const response = await axios.patch(`/api/editjob/${id}`, task);
       toast.success("Task assigned successfully");
       setLoading(false);
     } catch (error: any) {
@@ -55,7 +56,6 @@ const EditForm = ({ setOpenAssign, id }: AddFormProps) => {
   const handleValueChange = (value: any) => {
     setTask({ ...task, status: value });
   };
-
   return (
     <div className="z-10 absolute top-[104px] right-6 flex items-center">
       <div>
@@ -64,9 +64,7 @@ const EditForm = ({ setOpenAssign, id }: AddFormProps) => {
       <Card className="mx-auto max-w-sm ">
         <CardHeader>
           <CardTitle className="text-xl">Edit Task</CardTitle>
-          <CardDescription>
-            Edit Job Details
-          </CardDescription>
+          <CardDescription>Edit Job Details</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 mb-2">
@@ -75,7 +73,7 @@ const EditForm = ({ setOpenAssign, id }: AddFormProps) => {
                 <Label htmlFor="id">Name</Label>
                 <Input
                   id="id"
-                  placeholder="AWE1001"
+                  placeholder={task.name}
                   onChange={(e) => setTask({ ...task, name: e.target.value })}
                 />
               </div>
@@ -96,7 +94,9 @@ const EditForm = ({ setOpenAssign, id }: AddFormProps) => {
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div className="grid gap-2">
-                <Label htmlFor="phone-number">Deadline</Label>
+                <Label htmlFor="phone-number">
+                  Deadline <span className="text-red-400">*</span>
+                </Label>
                 <Input
                   type="date"
                   id="phone-number"
@@ -107,7 +107,9 @@ const EditForm = ({ setOpenAssign, id }: AddFormProps) => {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="first-name">Payment</Label>
+                <Label htmlFor="first-name">
+                  Payment <span className="text-red-400">*</span>
+                </Label>
                 <Input
                   id="first-name"
                   type="number"
@@ -137,19 +139,21 @@ const EditForm = ({ setOpenAssign, id }: AddFormProps) => {
               </Select>
             </div>
             <div className="grid gap-4">
-            <div className="grid gap-2">
               <div className="grid gap-2">
-                <Label htmlFor="id">Employer</Label>
-                <Input
-                  id="id"
-                  placeholder="Employer name"
-                  onChange={(e) => setTask({ ...task, employer: e.target.value })}
-                />
+                <div className="grid gap-2">
+                  <Label htmlFor="id">Employer</Label>
+                  <Input
+                    id="id"
+                    placeholder="Employer name"
+                    onChange={(e) =>
+                      setTask({ ...task, employer: e.target.value })
+                    }
+                  />
+                </div>
               </div>
             </div>
-          </div>
             <Button type="submit" className="w-full" onClick={handleSubmit}>
-              {loading ? "Processing" : "Assign an new Task"}
+              {loading ? "Processing" : "Edit Task Details"}
             </Button>
           </div>
         </CardContent>

@@ -25,6 +25,10 @@ const Page = () => {
   const [openAssign, setOpenAssign] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [assignId, setAssignId] = useState();
+  const [assignData, setAssignData] = useState({
+    id:"",
+    name:""
+  });
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -90,8 +94,8 @@ const Page = () => {
     setOpenAssign(true);
   };
 
-  const handleEdit = async (id: any) =>{
-    setAssignId(id)
+  const handleEdit = async (id: any, name:string) =>{
+    setAssignData({id:id, name:name})
     setOpenEdit(true)
   }
 
@@ -109,7 +113,7 @@ const Page = () => {
                     <AssignForm setOpenAssign={setOpenAssign} id={assignId} />
                   )}
                   {openEdit && (
-                    <EditForm setOpenAssign={setOpenEdit} id={assignId} />
+                    <EditForm setOpenAssign={setOpenEdit} id={assignData.id} name={assignData.name}/>
                   )}
                   {open == false && openAssign == false && openEdit == false ? (
                     <Button
