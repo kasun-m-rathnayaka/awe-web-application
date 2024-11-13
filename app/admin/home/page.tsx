@@ -17,11 +17,13 @@ import axios from "axios";
 import AddForm from "@/components/AddForm";
 import toast from "react-hot-toast";
 import AssignForm from "@/components/AssignForm";
+import EditForm from "@/components/EditForm";
 
 const Page = () => {
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [openAssign, setOpenAssign] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [assignId, setAssignId] = useState();
   const [tasks, setTasks] = useState([]);
 
@@ -88,6 +90,11 @@ const Page = () => {
     setOpenAssign(true);
   };
 
+  const handleEdit = async (id: any) =>{
+    setAssignId(id)
+    setOpenEdit(true)
+  }
+
   return (
     <div>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -101,7 +108,10 @@ const Page = () => {
                   {openAssign && (
                     <AssignForm setOpenAssign={setOpenAssign} id={assignId} />
                   )}
-                  {open == false && openAssign == false ? (
+                  {openEdit && (
+                    <EditForm setOpenAssign={setOpenEdit} id={assignId} />
+                  )}
+                  {open == false && openAssign == false && openEdit == false ? (
                     <Button
                       size="sm"
                       className="h-7 gap-1"
@@ -119,6 +129,7 @@ const Page = () => {
                       onClick={() => {
                         setOpen(false);
                         setOpenAssign(false);
+                        setOpenEdit(false)
                       }}
                     >
                       <CircleX className="h-3.5 w-3.5" />
@@ -143,6 +154,7 @@ const Page = () => {
                       data={tasks}
                       handleDelete={handleDelete}
                       handleAssign={handleAssign}
+                      handleEdit={handleEdit}
                     />
                   </CardContent>
                   <CardFooter>

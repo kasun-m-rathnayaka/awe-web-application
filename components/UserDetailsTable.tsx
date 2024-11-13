@@ -96,7 +96,7 @@ const UserDetailsTable = ({
                     <TableCell
                       className={`hidden md:table-cell ${
                         project.deadline <
-                        moment().format("MMMM Do YYYY, h:mm:ss a")
+                        moment().format()
                           ? "bg-red-100 text-red-800"
                           : "bg-green-100 text-green-800"
                       }`}

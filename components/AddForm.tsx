@@ -59,17 +59,17 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
     setTask({ ...task, status: value });
   };
 
-  const handleCheck = async (value: string) => {
-    try {
-      if (task.writer.length > 3) {
-        const response = await axios.get(`/api/users/user/${value}`);
-        setChecking(false);
-      }
-    } catch (error: any) {
-      console.log("error", error.response);
-      // toast.error(error.response.data.message);      
-    }
-  }
+  // const handleCheck = async (value: string) => {
+  //   try {
+  //     if (task.writer.length > 3) {
+  //       const response = await axios.get(`/api/users/user/${value}`);
+  //       setChecking(false);
+  //     }
+  //   } catch (error: any) {
+  //     console.log("error", error.response);
+  //     // toast.error(error.response.data.message);      
+  //   }
+  // }
 
   return (
     <motion.div
@@ -89,7 +89,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-4">
                 <div className="grid gap-2">
                   <Label htmlFor="first-name">Name</Label>
                   <Input
@@ -99,7 +99,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                     required
                   />
                 </div>
-                <div className="grid gap-2">
+                {/* <div className="grid gap-2">
                   <Label htmlFor="last-name">
                     Writer
                     {task.writer.length > 3 ? (
@@ -125,7 +125,7 @@ const AddForm: React.FC<AddFormProps> = ({ setOpen }) => {
                       handleCheck(e.target.value);
                     }}
                   />
-                </div>
+                </div> */}
               </div>
               <div className="grid gap-2">
                 <div className="grid gap-2">

@@ -34,6 +34,7 @@ interface TableComponentProps {
   }[];
   handleDelete: (id: any) => void;
   handleAssign: (id: any) => void;
+  handleEdit: (id:any) => void;
 }
 
 const TableComponent: React.FC<TableComponentProps> = ({
@@ -41,6 +42,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
   data,
   handleDelete,
   handleAssign,
+  handleEdit,
 }) => {
   return (
     <div>
@@ -58,6 +60,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
         <TableBody>
           {data.map((item, i) => {
             if (item == null) return null;
+            
             return (
               <TableRow key={item._id}>
                 <TableCell className="hidden sm:table-cell">
@@ -67,7 +70,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                 <TableCell>{item.writer}</TableCell>
                 <TableCell>{item.description}</TableCell>
                 <TableCell className={`hidden md:table-cell ${
-                    item.deadline < moment().format("MMMM Do YYYY, h:mm:ss a")
+                    item.deadline < moment().format()
                       ? "bg-red-100 text-red-800"
                       : "bg-green-100 text-green-800"
                   }`}>
@@ -96,6 +99,9 @@ const TableComponent: React.FC<TableComponentProps> = ({
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
                       <DropdownMenuItem onClick={(e) => handleAssign(item._id)}>
+                        Assign
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={(e) => handleEdit(item._id)}>
                         Edit
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={(e) => handleDelete(item._id)}>

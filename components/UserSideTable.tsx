@@ -34,10 +34,10 @@ interface UserSideTableProps {
   }[];
 }
 // print current time
-console.log(
-  moment().format("MMMM Do YYYY, h:mm:ss a") >
-    moment().format("MMMM Do YYYY, h:mm:ss a")
-);
+// console.log(
+//   moment().format("MMMM Do YYYY, h:mm:ss a") >
+//     moment().format("MMMM Do YYYY, h:mm:ss a")
+// );
 const UserSideTable: React.FC<UserSideTableProps> = ({ titles, data }) => {
   return (
     <div>
@@ -65,7 +65,7 @@ const UserSideTable: React.FC<UserSideTableProps> = ({ titles, data }) => {
                 <TableCell>{item.description}</TableCell>
                 <TableCell
                   className={`hidden md:table-cell ${
-                    item.deadline < moment().format("MMMM Do YYYY, h:mm:ss a")
+                    item.deadline < moment().format()
                       ? "bg-red-100 text-red-800"
                       : "bg-green-100 text-green-800"
                   }`}
