@@ -61,9 +61,8 @@ npm run dev
 
 Create a `.env.local` file with the following variables:
 ```
-DATABASE_URL=your_mongodb_url
-JWT_SECRET=your_jwt_secret
-NEXT_PUBLIC_API_URL=your_api_url
+DATABASE_URL= mongodb_url
+JWT_SECRET= jwt_secret
 ```
 
 ## 🌟 Usage
