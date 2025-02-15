@@ -1,5 +1,5 @@
 import React from "react";
-import { MoreHorizontal, NotebookText } from "lucide-react";
+import { MoreHorizontal, Clipboard } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -64,7 +64,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
             return (
               <TableRow key={item._id}>
                 <TableCell className="hidden sm:table-cell">
-                  <NotebookText />
+                  <Clipboard size={18} />
                 </TableCell>
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell>{item.writer}</TableCell>

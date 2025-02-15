@@ -58,7 +58,7 @@ const WriterInfoTable: React.FC<TableComponentProps> = ({ titles, data }) => {
               <TableRow key={item._id}>
                 {open && <VerifyForm setOpen={setOpen} userId={item._id} />}
                 <TableCell className="hidden sm:table-cell">
-                  <NotebookText />
+                  <NotebookText size={18} />
                 </TableCell>
                 <TableCell className="font-medium">{item.firstname}</TableCell>
                 <TableCell>{item.lastname}</TableCell>

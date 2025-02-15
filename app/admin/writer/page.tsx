@@ -85,6 +85,17 @@ const Page = () => {
     router.push(`/admin/${id}`);
   };
 
+  const loadAll = async () => {
+    try {
+      const response = await axios.get("/api/writer/all").then((res) => {
+        setTasks(res.data);
+      });
+    } catch (error: any) {
+      console.log("error", error.response);
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <div>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -137,10 +148,9 @@ const Page = () => {
                     />
                   </CardContent>
                   <CardFooter>
-                    <div className="text-xs text-muted-foreground">
-                      Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                      writers
-                    </div>
+                    <Button size="sm" className="h-7 gap-1" onClick={loadAll}>
+                      Load More
+                    </Button>
                   </CardFooter>
                 </Card>
               </TabsContent>

@@ -9,7 +9,7 @@ const taskSchema = new mongoose.Schema({
   paid: { type: Number, required: false, default: 0 },
   status: { type: String, required: false, default: "open" },
   employer: { type: String, required: false, default: "none" },
-});
+},{timestamps: true});
 
 const Task = mongoose.models.task || mongoose.model("task", taskSchema);
 export default Task;
